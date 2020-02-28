@@ -1,0 +1,45 @@
+package com.easy2manage.backend.controller;
+
+import com.easy2manage.backend.dto.ticket.CreateTicketDto;
+import com.easy2manage.backend.dto.ticket.TicketDto;
+import com.easy2manage.backend.facade.TicketFacade;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.rmi.NoSuchObjectException;
+import java.util.NoSuchElementException;
+
+@RestController
+@RequestMapping(value = "/api/ticket")
+public class TicketController {
+
+    @Resource
+    private TicketFacade ticketFacade;
+
+    @PostMapping(value = "/create")
+    public ResponseEntity<?> createTicket(@RequestBody @Valid CreateTicketDto dto) {
+        try {
+            ticketFacade.createTicket(dto);
+            return ResponseEntity.ok("Successfully created.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Server problem, can't create ticket. " + e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> getTicket(@PathVariable(name = "id") Integer ticketId) {
+        try {
+            TicketDto ticket = ticketFacade.getTicket(ticketId);
+            return ResponseEntity.ok(ticket);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Server problem, can't get ticket. " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+}
