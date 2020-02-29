@@ -5,10 +5,13 @@ import com.easy2manage.backend.dto.project.ProjectDto;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.model.Project;
 import com.easy2manage.backend.service.ProjectService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Component
 public class ProjectFacadeImpl implements ProjectFacade {
@@ -61,5 +64,23 @@ public class ProjectFacadeImpl implements ProjectFacade {
         projectDto.setId(project.getId());
 
         return projectDto;
+    }
+
+    @Override
+    public List<ProjectDto> getProjects(Integer limit, Integer offset) {
+        try{
+            Page<Project> projectPage =  projectService.getProjects(limit, offset);
+            if(projectPage.getContent().size() == 0){
+                throw new NoSuchElementException();
+            }
+            return projectPage.getContent().stream()
+                    .map(this::getInfoFromModel)
+                    .collect(Collectors.toList());
+        }catch (NoSuchElementException ex){
+            throw ex;
+        }
+        catch (Exception ex){
+            throw new IllegalArgumentException("Unknown exception");
+        }
     }
 }

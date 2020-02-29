@@ -3,6 +3,10 @@ package com.easy2manage.backend.service.impl;
 import com.easy2manage.backend.model.Project;
 import com.easy2manage.backend.repository.ProjectRepository;
 import com.easy2manage.backend.service.ProjectService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,5 +31,9 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(project);
     }
 
-
+    @Override
+    public Page<Project> getProjects(Integer limit, Integer offset) {
+        Pageable pageable = new PageRequest(offset - 1, limit, new Sort(Sort.Direction.ASC, "name"));
+        return projectRepository.findAll(pageable);
+    }
 }

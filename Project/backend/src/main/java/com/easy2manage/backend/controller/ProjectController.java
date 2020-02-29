@@ -42,4 +42,18 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping
+    public ResponseEntity<?> getProjects(
+            @RequestParam(name = "limit") Integer limit,
+            @RequestParam(name = "offset") Integer offset) {
+        try {
+            return ResponseEntity.ok(projectFacade.getProjects(limit, offset));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Server problem, can't get projects. " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
