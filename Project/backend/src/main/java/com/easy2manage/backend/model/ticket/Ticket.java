@@ -1,14 +1,12 @@
 package com.easy2manage.backend.model.ticket;
 
 import com.easy2manage.backend.model.Project;
-import com.easy2manage.backend.model.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.swing.*;
 
 @Data
 @Entity
@@ -32,15 +30,17 @@ public class Ticket {
     @JoinColumn(name = "parent_ticket_id")
     private Ticket parentTicket;
 
-    //TODO - add other mappings
+    //TODO - add other mapping
     @Column(name = "assignee_id")
     private Integer assignee;
 
     @Column(name = "reporter_id")
     private Integer reporter;
 
-    @Column(name = "project_id")
-    private Integer project;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @Column(name = "sprint_id")
     private Integer sprint;
