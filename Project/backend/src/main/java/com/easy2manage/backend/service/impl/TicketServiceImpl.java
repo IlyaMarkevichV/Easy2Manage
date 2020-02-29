@@ -36,6 +36,8 @@ public class TicketServiceImpl implements TicketService {
             } else {
                 throw new IllegalArgumentException("Ticket with such name already exists.");
             }
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             throw new IllegalArgumentException("Unknown error");
         }
@@ -48,7 +50,6 @@ public class TicketServiceImpl implements TicketService {
             return ticketRepository.findAll(pageable);
         }
 
-        //TODO - add repository method when project functionality is ready.
-        return null;
+        return ticketRepository.findTicketsByProjectId(pageable, projectId);
     }
 }
