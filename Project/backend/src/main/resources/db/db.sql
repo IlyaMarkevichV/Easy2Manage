@@ -31,7 +31,7 @@ CREATE TABLE `easy2manage`.`ticket_info` (
   `start_date` DATE NOT NULL,
   `due_date` DATE NOT NULL,
   `estimated` FLOAT NOT NULL,
-  `remainig` FLOAT NOT NULL,
+  `remaining` FLOAT NOT NULL,
   `logged` FLOAT NULL,
   `type` ENUM('STORY', 'DEV TASK', 'DEFECT') NOT NULL,
   `priority` ENUM('LOW', 'NORMAL', 'MAJOR', 'CRITICAL', 'BLOCKER') NOT NULL,
@@ -66,10 +66,10 @@ CREATE TABLE `easy2manage`.`user` (
 CREATE TABLE `easy2manage`.`ticket` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
-  `assignee_id` INT NOT NULL,
-  `reporter_id` INT NOT NULL,
-  `project_id` INT NOT NULL,
-  `sprint_id` INT NOT NULL,
+  `assignee_id` INT NULL,
+  `reporter_id` INT NULL,
+  `project_id` INT NULL,
+  `sprint_id` INT NULL,
   PRIMARY KEY (`id`));
 
 ALTER TABLE `easy2manage`.`user`
@@ -138,5 +138,15 @@ ADD CONSTRAINT `ticket2project`
 ADD CONSTRAINT `ticket2sprint`
   FOREIGN KEY (`sprint_id`)
   REFERENCES `easy2manage`.`sprint` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `easy2manage`.`ticket`
+ADD COLUMN `parent_ticket_id` INT(11) NULL AFTER `sprint_id`,
+ADD INDEX `ticket2parent_idx` (`parent_ticket_id` ASC) VISIBLE;
+ALTER TABLE `easy2manage`.`ticket`
+ADD CONSTRAINT `ticket2parent`
+  FOREIGN KEY (`parent_ticket_id`)
+  REFERENCES `easy2manage`.`ticket` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
