@@ -3,6 +3,7 @@ package com.easy2manage.backend.controller;
 import com.easy2manage.backend.dto.ticket.CreateTicketDto;
 import com.easy2manage.backend.dto.ticket.TicketDto;
 import com.easy2manage.backend.facade.TicketFacade;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,21 @@ public class TicketController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't get ticket. " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getTicketsByProject(
+            @RequestParam(name = "projectId") Integer projectId,
+            @RequestParam(name = "limit") Integer limit,
+            @RequestParam(name = "offset") Integer offset) {
+        try {
+            return ResponseEntity.ok(ticketFacade.getTickets(projectId, limit, offset));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Server problem, can't get tickets. " + e.getMessage());
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

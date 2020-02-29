@@ -3,6 +3,10 @@ package com.easy2manage.backend.service.impl;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.repository.TicketRepository;
 import com.easy2manage.backend.service.TicketService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,5 +39,16 @@ public class TicketServiceImpl implements TicketService {
         } catch (Exception e) {
             throw new IllegalArgumentException("Unknown error");
         }
+    }
+
+    @Override
+    public Page<Ticket> getTicketsByProject(Integer projectId, Integer limit, Integer offset) {
+        Pageable pageable = new PageRequest(offset - 1, limit, new Sort(Sort.Direction.ASC, "name"));
+        if (projectId == null) {
+            return ticketRepository.findAll(pageable);
+        }
+
+        //TODO - add repository method when project functionality is ready.
+        return null;
     }
 }

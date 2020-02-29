@@ -9,10 +9,13 @@ import com.easy2manage.backend.facade.TicketFacade;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
 import com.easy2manage.backend.service.TicketService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Component
@@ -61,6 +64,23 @@ public class TicketFacadeImpl implements TicketFacade {
         }
 
         return getDataFromModel(ticket);
+    }
+
+    @Override
+    public List<TicketDto> getTickets(Integer projectId, Integer limit, Integer offset) {
+        try {
+            Page<Ticket> tickets = ticketService.getTicketsByProject(projectId, limit, offset);
+            if (tickets.getSize() == 0) {
+                throw new NoSuchElementException();
+            }
+
+            List<TicketDto> dto = new ArrayList<>();
+            tickets.getContent()
+                    .forEach(ticket -> dto.add(getDataFromModel(ticket)));
+            return dto;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unknown exception.");
+        }
     }
 
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {
