@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'e2m-navigation-bar',
@@ -7,9 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+
+  public createProjectPopupVisible: boolean = false;
+  public createTicketPopupVisible: boolean = false;
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  public openCreateProjectPopup(event: any): void {
+    this.createProjectPopupVisible = true;
+  }
+
+  public closeCreateProjectPopup(): void {
+    this.createProjectPopupVisible = false;
+  }
+
+  public openCreateTicketPopup(event: any): void {
+    this.createTicketPopupVisible = true;
+  }
+
+  public closeCreateTicketPopup(): void {
+    this.createTicketPopupVisible = false;
   }
 
 }

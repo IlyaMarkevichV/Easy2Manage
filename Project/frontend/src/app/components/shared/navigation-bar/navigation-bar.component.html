@@ -23,7 +23,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownProjects">
             <li class="dropdown-item">
-              <a>ssss</a>
+              <button (click)="openCreateProjectPopup($event)" >Add project</button>
             </li>
           </ul>
         </li>
@@ -52,9 +52,11 @@
           </ul>
         </li>
         <li class="nav-left-menu_item">
-            <button class="btn">
-              Create
-            </button>
+          <button
+            class="btn"
+            (click)="openCreateTicketPopup($event)">
+            Create
+          </button>
         </li>
       </ul>
 
@@ -76,3 +78,12 @@
     </div>
   </div>
 </header>
+
+<e2m-create-project-popup
+  [visible]="createProjectPopupVisible">
+</e2m-create-project-popup>
+
+<e2m-create-ticket-popup
+  [visible]="createTicketPopupVisible"
+  (onClose)="closeCreateTicketPopup()">
+</e2m-create-ticket-popup>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'e2m-shared-popup',
@@ -7,9 +7,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SharedPopupComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  public header: string;
+  @Input()
+  public closeable: boolean;
+
+  @Output()
+  public onClose: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  public onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
+  }
+
+  public _onClose(): void {
+    this.onClose.emit();
+  }
+
+  public _onSubmit(): void {
+    this.onSubmit.emit();
   }
 
 }

@@ -1,1 +1,26 @@
-<p>create-project-popup works!</p>
+<e2m-shared-popup
+  *ngIf="visible"
+  [header]="'Create project'"
+  [closeable]="true"
+  (onClose)="_onClose()"
+  (onSubmit)="_onSubmit()">
+  <form [formGroup]="formGroup">
+    <div class="form-group">
+      <label for="name">Project name</label>
+      <input type="text"
+             class="form-control"
+             id="name"
+             placeholder="Enter project name"
+             [formControlName]="controlFieldsEnum.name">
+      <small id="emailHelp" class="form-text text-muted">Put you nigga code here</small>
+
+      <label for="description">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Password"
+        [formControlName]="controlFieldsEnum.description">
+    </div>
+  </form>
+</e2m-shared-popup>

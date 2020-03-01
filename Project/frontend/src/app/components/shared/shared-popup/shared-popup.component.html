@@ -1,1 +1,20 @@
-<p>shared-popup works!</p>
+<div class="popup" tabindex="-1" role="dialog">
+  <div class="popup-container">
+    <div class="popup-container__content">
+      <div class="popup-container__content-header">
+        <h3 class="popup-container__content-header-title" [innerHTML]="header"></h3>
+        <button
+          class="popup-container__content-header-close"
+          (click)="_onClose()">
+        </button>
+      </div>
+      <div class="popup-container__content-body">
+        <ng-content></ng-content>
+      </div>
+      <div class="popup-container__content-footer">
+        <button type="button" class="popup-container__content-footer-cancel btn btn-secondary " (click)="_onClose()">Cancel</button>
+        <button type="button" class="popup-container__content-footer-submit btn btn-primary" (click)="_onSubmit()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
