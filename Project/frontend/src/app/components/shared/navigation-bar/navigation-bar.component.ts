@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'e2m-navigation-bar',
@@ -11,7 +12,7 @@ export class NavigationBarComponent implements OnInit {
   public createProjectPopupVisible: boolean = false;
   public createTicketPopupVisible: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -31,6 +32,10 @@ export class NavigationBarComponent implements OnInit {
 
   public closeCreateTicketPopup(): void {
     this.createTicketPopupVisible = false;
+  }
+
+  public navigateToProjects(): void {
+    this.router.navigate(['projects']);
   }
 
 }

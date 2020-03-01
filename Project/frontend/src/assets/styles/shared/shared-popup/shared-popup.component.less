@@ -26,37 +26,39 @@
         display: flex;
         width: 100%;
         align-items: center;
+        justify-content: space-between;
         margin-top: 1.5rem;
         margin-bottom: 1rem;
 
         &-title {
-          flex: 0 0 92%;
-          width: 92%;
           margin: 0;
         }
 
         &-close {
-          flex: 0 0 8%;
           background-color: inherit;
           border: none;
-          background-image: url("src/assets/images/icons/Close.png");
+          background-image: url("src/assets/images/icons/close-gray.png");
           background-size: contain;
           background-repeat: no-repeat;
           width: 3rem;
           height: 3rem;
+
+          &:hover {
+            background-image: url("src/assets/images/icons/close-black.png");
+          }
         }
       }
 
       &-body {
         display: flex;
-        flex: 0 0 100%;
+        width: 100%;
       }
 
       &-footer {
         display: flex;
         flex-direction: row-reverse;
         flex: 0 0 100%;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
 
         &-cancel {
 
