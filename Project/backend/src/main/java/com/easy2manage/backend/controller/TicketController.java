@@ -1,5 +1,6 @@
 package com.easy2manage.backend.controller;
 
+import com.easy2manage.backend.dto.StringResponse;
 import com.easy2manage.backend.dto.ticket.CreateTicketDto;
 import com.easy2manage.backend.dto.ticket.TicketDto;
 import com.easy2manage.backend.facade.TicketFacade;
@@ -24,7 +25,7 @@ public class TicketController {
     public ResponseEntity<?> createTicket(@RequestBody @Valid CreateTicketDto dto) {
         try {
             ticketFacade.createTicket(dto);
-            return ResponseEntity.ok("Successfully created.");
+            return ResponseEntity.ok(new StringResponse("Successfully created."));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't create ticket. " + e.getMessage());

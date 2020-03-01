@@ -1,5 +1,6 @@
 package com.easy2manage.backend.controller;
 
+import com.easy2manage.backend.dto.StringResponse;
 import com.easy2manage.backend.dto.project.CreateProjectDto;
 import com.easy2manage.backend.dto.project.ProjectDto;
 import com.easy2manage.backend.facade.ProjectFacade;
@@ -22,7 +23,7 @@ public class ProjectController {
     public ResponseEntity<?> createProject(@RequestBody @Valid CreateProjectDto dto) {
         try {
             projectFacade.createProject(dto);
-            return ResponseEntity.ok("Successfully created.");
+            return ResponseEntity.ok(new StringResponse("Successfully created."));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't create project. " + e.getMessage());
