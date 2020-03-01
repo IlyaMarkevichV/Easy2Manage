@@ -1,7 +1,7 @@
 <header class="navbar navbar-expand-lg _header">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button class="btn navbar-brand">E2M</button>
+      <button class="btn navbar-brand" (click)="navigateToLanding()">E2M</button>
     </div>
     <div class="nav">
       <ul class="nav-left-menu">
@@ -39,7 +39,8 @@
               </ul>
             </li>
             <li class="dropdown-item">
-              <button class="btn nav-left-menu__item-dropdown-item_add-project" (click)="openCreateProjectPopup($event)">
+              <button
+                class="btn nav-left-menu__item-dropdown-item_add-project" (click)="openCreateProjectPopup($event)">
                 <span class="nav-left-menu__item-dropdown-item_add-project-icon"></span>
                 Add project
               </button>
@@ -100,7 +101,8 @@
 
 <e2m-create-project-popup
   [visible]="createProjectPopupVisible"
-  (onClose)="closeCreateProjectPopup()">
+  (onClose)="closeCreateProjectPopup()"
+  (onSubmit)="createProject($event)">
 </e2m-create-project-popup>
 
 <e2m-create-ticket-popup

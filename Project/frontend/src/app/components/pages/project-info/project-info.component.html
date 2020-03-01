@@ -1,1 +1,19 @@
-<p>project-info works!</p>
+<div class="project-info">
+  <div class="project-info__container">
+    <div class="project-info__container_header">
+      <h2>Projects</h2>
+    </div>
+
+    <div class="project-info__container_body">
+      <ul class="project-info__container_body-content">
+        <li class="project-info__container_body-content-item" *ngFor="let project of projects">
+          <a class="btn project-info__container_body-content-item_container">
+            <div class="project-info__container_body-content-item_container-details">
+              {{project.name}}
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

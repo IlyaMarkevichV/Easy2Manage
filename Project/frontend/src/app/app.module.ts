@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {SharedModule} from './components/shared/shared.module';
 import {PagesModule} from './components/pages/pages.module';
+import {ProjectService} from "./components/service/project.service";
+import {TicketService} from "./components/service/ticket.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,9 +17,10 @@ import {PagesModule} from './components/pages/pages.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    PagesModule
+    PagesModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProjectService, TicketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
