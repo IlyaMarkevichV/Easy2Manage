@@ -37,6 +37,11 @@ public class CreateTicketDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dueDate;
 
+    @NotNull(message = "Project id should not be null.")
+    private Integer projectId;
+
+    private Integer parentTicketId;
+
     //TODO uncomment when functionality is ready
     //@NotNull
     private Integer assigneeId;
@@ -45,10 +50,5 @@ public class CreateTicketDto {
     private Integer reporterId;
 
     //@NotNull
-    private Integer projectId;
-
-    //@NotNull
     private Integer sprintId;
-
-    private Integer parentTicketId;
 }

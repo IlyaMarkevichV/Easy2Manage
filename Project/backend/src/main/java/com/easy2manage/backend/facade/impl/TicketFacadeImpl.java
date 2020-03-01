@@ -5,9 +5,11 @@ import com.easy2manage.backend.dto.ticket.TicketDto;
 import com.easy2manage.backend.enums.ticket.TicketPriority;
 import com.easy2manage.backend.enums.ticket.TicketStatus;
 import com.easy2manage.backend.enums.ticket.TicketType;
+import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.facade.TicketFacade;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
+import com.easy2manage.backend.service.ProjectService;
 import com.easy2manage.backend.service.TicketService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,12 @@ public class TicketFacadeImpl implements TicketFacade {
 
     @Resource
     private TicketService ticketService;
+
+    @Resource
+    private ProjectService projectService;
+
+    @Resource
+    private ProjectFacade projectFacade;
 
     @Override
     public void createTicket(CreateTicketDto dto) {
@@ -40,7 +48,7 @@ public class TicketFacadeImpl implements TicketFacade {
 
         ticketInfo.setTicket(ticket);
         ticket.setTicketInfo(ticketInfo);
-
+        ticket.setProject(projectService.getProject(dto.getProjectId()));
 
         ticketService.createTicket(ticket);
     }
@@ -70,7 +78,7 @@ public class TicketFacadeImpl implements TicketFacade {
     public List<TicketDto> getTickets(Integer projectId, Integer limit, Integer offset) {
         try {
             Page<Ticket> tickets = ticketService.getTicketsByProject(projectId, limit, offset);
-            if (tickets.getSize() == 0) {
+            if (tickets.getContent().size() == 0) {
                 throw new NoSuchElementException();
             }
 
@@ -78,6 +86,9 @@ public class TicketFacadeImpl implements TicketFacade {
             tickets.getContent()
                     .forEach(ticket -> dto.add(getDataFromModel(ticket)));
             return dto;
+
+        } catch (NoSuchElementException e) {
+            throw e;
         } catch (Exception e) {
             throw new IllegalArgumentException("Unknown exception.");
         }
@@ -114,6 +125,7 @@ public class TicketFacadeImpl implements TicketFacade {
         ticketDto.setLogged(ticketInfo.getLogged());
         ticketDto.setStartDate(ticketInfo.getStartDate());
         ticketDto.setDueDate(ticketInfo.getDueDate());
+        ticketDto.setProject(projectFacade.getProjectDto(ticket.getProject().getId()));
         //TODO - add 4 sets
         ticketDto.setParentTicket(ticket.getParentTicket());
 
