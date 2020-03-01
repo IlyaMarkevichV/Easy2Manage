@@ -39,7 +39,7 @@ export class CreateProjectPopupComponent implements OnInit {
   }
 
   public _onSubmit() {
-    this.onSubmit.emit();
+    this.onSubmit.emit(this.project);
   }
 
   public _onClose(): void {
