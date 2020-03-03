@@ -6,7 +6,7 @@ import com.easy2manage.backend.dto.project.ProjectDto;
 import java.util.List;
 
 public interface ProjectFacade {
-    void createProject(CreateProjectDto createProjectDto);
+    ProjectDto createProject(CreateProjectDto createProjectDto);
     ProjectDto getProjectDto(Integer projectId);
     List<ProjectDto> getProjects(Integer limit, Integer offset);
 }

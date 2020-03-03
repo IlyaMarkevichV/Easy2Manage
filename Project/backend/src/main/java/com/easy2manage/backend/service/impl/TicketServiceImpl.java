@@ -28,11 +28,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void createTicket(Ticket ticket) {
+    public Ticket createTicket(Ticket ticket) {
         try {
             Ticket testTicket = getTicketByName(ticket.getName());
             if (testTicket == null) {
-                ticketRepository.save(ticket);
+                return ticketRepository.save(ticket);
             } else {
                 throw new IllegalArgumentException("Ticket with such name already exists.");
             }

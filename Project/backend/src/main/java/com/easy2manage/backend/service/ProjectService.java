@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 
 public interface ProjectService {
     Project getProject(Integer id);
-    void createProject(Project project);
+    Project createProject(Project project);
     Page<Project> getProjects(Integer limit, Integer offset);
 }

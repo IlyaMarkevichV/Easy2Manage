@@ -20,14 +20,14 @@ public class ProjectFacadeImpl implements ProjectFacade {
     private ProjectService projectService;
 
     @Override
-    public void createProject(CreateProjectDto createProjectDto) {
+    public ProjectDto createProject(CreateProjectDto createProjectDto) {
         Project project = new Project();
 
         project.setDescription(createProjectDto.getDescription());
         project.setName(createProjectDto.getName());
 
         try {
-            projectService.createProject(project);
+            return getInfoFromModel(projectService.createProject(project));
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception ex) {

@@ -22,8 +22,7 @@ public class ProjectController {
     @PostMapping(value = "/create")
     public ResponseEntity<?> createProject(@RequestBody @Valid CreateProjectDto dto) {
         try {
-            projectFacade.createProject(dto);
-            return ResponseEntity.ok(new StringResponse("Successfully created."));
+            return ResponseEntity.ok(projectFacade.createProject(dto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't create project. " + e.getMessage());

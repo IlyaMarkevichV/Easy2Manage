@@ -24,8 +24,7 @@ public class TicketController {
     @PostMapping(value = "/create")
     public ResponseEntity<?> createTicket(@RequestBody @Valid CreateTicketDto dto) {
         try {
-            ticketFacade.createTicket(dto);
-            return ResponseEntity.ok(new StringResponse("Successfully created."));
+            return ResponseEntity.ok(ticketFacade.createTicket(dto));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't create ticket. " + e.getMessage());

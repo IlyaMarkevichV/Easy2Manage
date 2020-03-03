@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 public interface TicketService {
     Ticket getTicketById(Integer id);
     Ticket getTicketByName(String name);
-    void createTicket(Ticket ticket);
+    Ticket createTicket(Ticket ticket);
     Page<Ticket> getTicketsByProject(Integer projectId, Integer limit, Integer offset);
 }

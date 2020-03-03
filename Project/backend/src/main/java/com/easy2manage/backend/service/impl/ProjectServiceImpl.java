@@ -23,12 +23,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void createProject(Project project) {
+    public Project createProject(Project project) {
         Project tmpProject = projectRepository.getProjectByName(project.getName());
         if (tmpProject != null) {
             throw new IllegalArgumentException("Project with such name already exists");
         }
-        projectRepository.save(project);
+        return projectRepository.save(project);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class TicketFacadeImpl implements TicketFacade {
     private ProjectFacade projectFacade;
 
     @Override
-    public void createTicket(CreateTicketDto dto) {
+    public TicketDto createTicket(CreateTicketDto dto) {
         TicketInfo ticketInfo = createInfoForNewTicket(dto);
 
         Ticket ticket = new Ticket();
@@ -50,7 +50,7 @@ public class TicketFacadeImpl implements TicketFacade {
         ticket.setTicketInfo(ticketInfo);
         ticket.setProject(projectService.getProject(dto.getProjectId()));
 
-        ticketService.createTicket(ticket);
+        return getDataFromModel(ticketService.createTicket(ticket));
     }
 
     @Override

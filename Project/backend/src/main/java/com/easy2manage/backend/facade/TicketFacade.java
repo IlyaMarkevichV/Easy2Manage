@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface TicketFacade {
-    void createTicket(CreateTicketDto dto);
+    TicketDto createTicket(CreateTicketDto dto);
     TicketDto getTicket(Integer ticketId);
     List<TicketDto> getTickets(Integer projectId, Integer limit, Integer offset);
 }
