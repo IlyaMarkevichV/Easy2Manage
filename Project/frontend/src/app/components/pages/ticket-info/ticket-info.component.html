@@ -1,1 +1,26 @@
-<p>ticket-info works!</p>
+<div class="ticket-info">
+  <div class="ticket-info__container">
+    <div class="ticket-info__container_header">
+      <h2 [innerHTML]="project.name"></h2>
+    </div>
+    <div class="ticket-info__container_body">
+      <ng-container *ngIf="load && tickets; else notFound">
+
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="ticket-info__not-found">
+    <p class="ticket-info__not-found_title">
+      There is no tickets yet
+    </p>
+    <button class="btn ticket-info__not-found_add" (click)="addTicket($event)">
+      <span class="btn ticket-info__not-found_add-icon"></span>
+    </button>
+    <p class="ticket-info__not-found_description">
+      Click here to add
+    </p>
+  </div>
+</ng-template>

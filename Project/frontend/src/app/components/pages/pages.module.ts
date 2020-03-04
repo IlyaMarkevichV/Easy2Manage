@@ -4,6 +4,8 @@ import {NgModule} from '@angular/core';
 import { ProjectInfoComponent } from './project-info/project-info.component';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 import {CommonModule} from "@angular/common";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {ChartsModule} from "ng2-charts";
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import {CommonModule} from "@angular/common";
   ],
     imports: [
         SharedModule,
-        CommonModule
+        CommonModule,
+        DragDropModule,
+        ChartsModule
     ],
   providers: []
 })

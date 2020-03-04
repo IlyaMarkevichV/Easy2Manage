@@ -5,9 +5,13 @@
     </div>
 
     <div class="project-info__container_body">
-      <ul class="project-info__container_body-content">
-        <li class="project-info__container_body-content-item" *ngFor="let project of projects">
-          <a class="btn project-info__container_body-content-item_container">
+      <ul class="project-info__container_body-content"
+          cdkDropList
+          [cdkDropListData]="projects"
+          (cdkDropListDropped)="drop($event)">
+        <li class="project-info__container_body-content-item" *ngFor="let project of projects" cdkDrag>
+          <a class="btn project-info__container_body-content-item_container"
+             (click)="moveToTickets(project.id)">
             <div class="project-info__container_body-content-item_container-details">
               {{project.name}}
             </div>

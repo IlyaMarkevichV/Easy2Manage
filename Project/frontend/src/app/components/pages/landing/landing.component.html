@@ -1,1 +1,45 @@
-<p>Landing is ready</p>
+<div class="landing">
+  <div class="landing-body">
+
+    <div class="landing-body__intro">
+      <div class="landing-body__intro-title animated bounceInUp">
+        <p class="landing-body__intro-title-value">Introducing</p>
+        <p class="landing-body__intro-title-subtitle">Easy2Manage</p>
+        <p class="landing-body__intro-title-description">project management tool</p>
+      </div>
+    </div>
+
+    <div class="landing-body__container">
+      <div class="landing-body__container-chart-line">
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="false"
+                [chartType]="lineChartType">
+
+        </canvas>
+      </div>
+      <div class="landing-body__container-description">
+        <p>Over 1,000 of active projects</p>
+      </div>
+    </div>
+
+    <div class="landing-body__project wow bounceInRight">
+      <p class="landing-body__project_title">
+        Create your first project
+      </p>
+      <button class="btn landing-body__project_add" (click)="createProject()">
+        <span class="btn landing-body__project_add-icon"></span>
+      </button>
+      <p class="landing-body__project_description">
+        Click here to create
+      </p>
+    </div>
+  </div>
+
+  <div class="landing-footer">
+    <p class="landing-footer-value">© Klementeam</p>
+  </div>
+</div>

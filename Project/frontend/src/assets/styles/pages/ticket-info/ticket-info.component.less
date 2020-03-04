@@ -1,0 +1,61 @@
+.ticket-info {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    &_header {
+      border-bottom: 1px solid #BDBDBD;
+    }
+
+    &_body {
+      margin-top: 3rem;
+
+    }
+  }
+
+  &__not-found {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 100%;
+    margin-top: 20rem;
+
+    &_title {
+      line-height: 1.5rem;
+      font-size: large;
+    }
+
+    &_add {
+      background-color: inherit;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &-icon {
+        background-image: url("src/assets/images/icons/add.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 10rem;
+        height: 10rem;
+        opacity: 70%;
+
+        &:hover {
+          opacity: 100%;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+      }
+
+    }
+
+    &_description {
+      align-self: center;
+    }
+  }
+}

@@ -16,9 +16,9 @@
 
       &-content {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
-        justify-content: center;
+        align-content: center;
         list-style: none;
         width: 100%;
 
@@ -50,4 +50,11 @@
       }
     }
   }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 }

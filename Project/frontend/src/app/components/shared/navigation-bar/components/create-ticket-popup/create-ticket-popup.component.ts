@@ -32,6 +32,10 @@ export class CreateTicketPopupComponent implements OnInit {
 
   @Input()
   public visible: boolean;
+  @Input()
+  public projectsArray: Project[];
+  @Input()
+  public selectedProject: Project;
 
   @Output()
   public onSubmit: EventEmitter<Project> = new EventEmitter<Project>();

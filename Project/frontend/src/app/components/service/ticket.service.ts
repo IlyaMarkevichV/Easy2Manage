@@ -11,7 +11,7 @@ export class TicketService {
 
   constructor(private http: HttpClient) {}
 
-  getTickets(projectId: number, offset: number, limit: number): Observable<Ticket[]> {
+  getTickets(projectId: string, offset: number, limit: number): Observable<Ticket[]> {
     return this.http.get<Ticket[]>("api/ticket?projectId=" + projectId + "&limit=" + limit + "&offset=" + offset);
   }
 

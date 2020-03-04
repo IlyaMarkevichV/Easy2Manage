@@ -1,0 +1,122 @@
+.landing {
+  height: 100%;
+  width: 100%;
+
+  &-body {
+
+    &__intro {
+      background-image: url("src/assets/images/blue-background.jpg");
+      background-repeat: no-repeat;
+      height: 70rem;
+      width: 100%;
+      text-align: center;
+
+      &-title {
+        padding-top: 10rem;
+        color: white;
+
+        &-value {
+
+          font-size: 10rem;
+        }
+
+        &-subtitle {
+          font-size: 10rem;
+        }
+
+        &-description {
+          font-size: 4rem;
+        }
+      }
+    }
+
+    &__container {
+      margin-top: 7rem;
+      height: 70rem;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-right: 15rem;
+      padding-left: 15rem;
+
+      &-chart {
+        &-doughnut {
+          transform: rotate(225deg);
+        }
+
+        &-line {
+          flex: 0 0 100%;
+        }
+      }
+
+      &-description {
+        flex: 0 0 100%;
+        text-align: center;
+      }
+    }
+
+    &__project {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
+      margin-top: 20rem;
+      height: 45rem;
+      width: 100%;
+
+      &_title {
+        line-height: 1.5rem;
+        font-size: large;
+      }
+
+      &_add {
+        background-color: inherit;
+
+        &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+
+        &-icon {
+          background-image: url("src/assets/images/icons/add.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          width: 10rem;
+          height: 10rem;
+          opacity: 70%;
+
+          &:hover {
+            opacity: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          }
+        }
+
+      }
+
+      &_description {
+        align-self: center;
+      }
+    }
+  }
+
+  &-footer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top: 1px solid #BDBDBD;
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+    &-value {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.chartjs-size-monitor {
+  position: relative;
+}

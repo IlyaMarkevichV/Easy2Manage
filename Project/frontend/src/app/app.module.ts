@@ -8,6 +8,8 @@ import {PagesModule} from './components/pages/pages.module';
 import {ProjectService} from "./components/service/project.service";
 import {TicketService} from "./components/service/ticket.service";
 import {HttpClientModule} from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {SharedEventsService} from "./components/service/shared.events.service";
 
 @NgModule({
   declarations: [
@@ -18,9 +20,14 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     SharedModule,
     PagesModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
-  providers: [ProjectService, TicketService],
+  providers: [
+    ProjectService,
+    TicketService,
+    SharedEventsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
