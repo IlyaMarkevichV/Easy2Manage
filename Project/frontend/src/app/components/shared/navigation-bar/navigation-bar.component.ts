@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 import {Project} from "../../model/project";
 import {ProjectService} from "../../service/project.service";
 import {SharedEventsService} from "../../service/shared.events.service";
+import {Ticket} from "../../model/ticket";
+import {TicketService} from "../../service/ticket.service";
 
 @Component({
   selector: 'e2m-navigation-bar',
@@ -16,9 +18,11 @@ export class NavigationBarComponent implements OnInit {
   public createTicketPopupVisible: boolean = false;
 
   public selectedProject: Project;
+  public projects: Project[];
 
   constructor(private router: Router,
               private service: ProjectService,
+              private ticketService: TicketService,
               private sharedEvents: SharedEventsService) {
   }
 
@@ -35,7 +39,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   public openCreateTicketPopup(event: any): void {
-    this.createTicketPopupVisible = true;
+    this.getAllProjects();
   }
 
   public closeCreateTicketPopup(): void {
@@ -51,8 +55,17 @@ export class NavigationBarComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  public createProject(event: Project): void {
-    this.service.saveProject(event).subscribe((project: Project) => {
+  private getAllProjects() {
+    this.service.getProjects(1, 1234).subscribe((data: Project[]) => {
+      if (data) {
+        this.projects = data;
+        this.createTicketPopupVisible = true;
+      }
+    });
+  }
+
+  public createProject(newProject: Project): void {
+    this.service.saveProject(newProject).subscribe((project: Project) => {
         if (project) {
           this.closeCreateProjectPopup();
           this.router.navigate(['tickets'], {
@@ -65,6 +78,17 @@ export class NavigationBarComponent implements OnInit {
       () => {
         this.closeCreateProjectPopup();
       });
+  }
+
+  public createTicket(newTicket: Ticket): void {
+    this.ticketService.saveTicket(newTicket).subscribe((ticket: Ticket) => {
+      this.closeCreateTicketPopup();
+      this.router.navigate(['tickets'], {
+        queryParams: {
+          id: ticket.project.id
+        }
+      })
+    });
   }
 
   private initSubscriptions(): void {

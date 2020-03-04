@@ -10,17 +10,9 @@ export enum ControlFields {
   description = 'description',
   type = 'type',
   priority = 'priority',
-  status = 'status',
-  assignee = 'assignee',
-  reporter = 'reporter',
-  project = 'project',
-  sprint = 'sprint',
-  startDate = 'startDate',
+  projectId = 'projectId',
   dueDate = 'dueDate',
   estimated = 'estimated',
-  remaining = 'remaining',
-  logged = 'logged',
-  parentTicket = 'parentTicket'
 }
 
 @Component({
@@ -38,10 +30,10 @@ export class CreateTicketPopupComponent implements OnInit {
   public selectedProject: Project;
 
   @Output()
-  public onSubmit: EventEmitter<Project> = new EventEmitter<Project>();
+  public onSubmit: EventEmitter<Ticket> = new EventEmitter<Ticket>();
 
   @Output()
-  public onClose: EventEmitter<Project> = new EventEmitter<Project>();
+  public onClose: EventEmitter<Ticket> = new EventEmitter<Ticket>();
 
   public ticket: Ticket = new Ticket();
 
@@ -49,6 +41,10 @@ export class CreateTicketPopupComponent implements OnInit {
   public controlFieldsEnum = ControlFields;
 
   public unsubscribeStream: Subject<void> = new Subject<void>();
+
+  public types: Set<string> = new Set<string>(['story', 'dev task', 'defect']);
+  public priorities: Set<string> = new Set<string>(['low', 'normal', 'major', 'critical', 'blocker']);
+
 
   constructor() {
   }
@@ -59,7 +55,8 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   public _onSubmit(): void {
-    this.onSubmit.emit();
+    this.ticket.status = "open";
+    this.onSubmit.emit(this.ticket);
   }
 
   public _onClose(): void {
@@ -76,7 +73,11 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   private onValueChange(key: string, value: any) {
-    this.ticket[key] = value;
+    if (key === this.controlFieldsEnum.projectId) {
+      this.ticket[key] = this.projectsArray.find(project => project.name == value).id;
+    } else {
+      this.ticket[key] = value;
+    }
   }
 
 }

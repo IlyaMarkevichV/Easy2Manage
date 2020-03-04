@@ -12,7 +12,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownDashboards">
             <li class="dropdown-item">
-              <a>ssss</a>
+              <a>My dashboard</a>
             </li>
           </ul>
         </li>
@@ -27,7 +27,7 @@
                 Show all
               </button>
             </li>
-            <li class="dropdown-item">
+            <!--<li class="dropdown-item">
               Open recent...
               <ul class="nav-recent-projects">
                 <li class="nav-recent-projects-item">
@@ -37,12 +37,12 @@
                   jdwfljh
                 </li>
               </ul>
-            </li>
+            </li>-->
             <li class="dropdown-item">
               <button
                 class="btn nav-left-menu__item-dropdown-item_add-project" (click)="openCreateProjectPopup($event)">
                 <span class="nav-left-menu__item-dropdown-item_add-project-icon"></span>
-                Add project
+                Create project
               </button>
             </li>
           </ul>
@@ -53,14 +53,16 @@
             Tickets
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownTickets">
-            <li>
-              <a>
-                sdss
-              </a>
+            <li class="dropdown-item">
+              <button
+                class="btn nav-left-menu__item-dropdown-item_add-project" (click)="openCreateTicketPopup($event)">
+                <span class="nav-left-menu__item-dropdown-item_add-project-icon"></span>
+                Create ticket
+              </button>
             </li>
           </ul>
         </li>
-        <li class="nav-left-menu__item">
+        <!--<li class="nav-left-menu__item">
           <button class="btn dropdown-toggle nav-left-menu__item-button" id="dropdownIssues"
                   data-toggle="dropdown">
             Issues
@@ -70,7 +72,7 @@
               ggfhfgh
             </li>
           </ul>
-        </li>
+        </li>-->
         <li class="nav-left-menu__item">
           <button
             class="btn"
@@ -90,7 +92,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
             <li class="dropdown-item">
-              ggfhfgh
+              Log In
             </li>
           </ul>
         </li>
@@ -108,5 +110,7 @@
 <e2m-create-ticket-popup
   [visible]="createTicketPopupVisible"
   [selectedProject]="selectedProject"
-  (onClose)="closeCreateTicketPopup()">
+  [projectsArray]="projects"
+  (onClose)="closeCreateTicketPopup()"
+  (onSubmit)="createTicket($event)">
 </e2m-create-ticket-popup>

@@ -12,6 +12,7 @@ export class Ticket {
   assignee: User;
   reporter: User;
   project: Project;
+  projectId: string;
   sprint: Sprint;
   startDate: Date;
   dueDate: Date;

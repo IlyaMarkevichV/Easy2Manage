@@ -12,8 +12,19 @@
         <ng-content></ng-content>
       </div>
       <div class="popup-container__content-footer">
-        <button type="button" class="popup-container__content-footer-cancel btn btn-secondary " (click)="_onClose()">Cancel</button>
-        <button type="button" class="popup-container__content-footer-submit btn btn-primary" (click)="_onSubmit()">Create</button>
+        <button
+          type="button"
+          class="popup-container__content-footer-cancel btn btn-secondary "
+          (click)="_onClose()">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="popup-container__content-footer-submit btn btn-primary"
+          (click)="_onSubmit()"
+          [disabled]="submitDisabled">
+          Create
+        </button>
       </div>
     </div>
   </div>
