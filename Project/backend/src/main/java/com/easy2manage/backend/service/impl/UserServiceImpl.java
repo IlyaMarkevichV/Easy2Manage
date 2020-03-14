@@ -27,4 +27,18 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }
+
+    @Override
+    public User createUser(User user) {
+        User tmpUser = userRepository.getUserByUsername(user.getUsername());
+        if (tmpUser != null) {
+            throw new IllegalArgumentException("User with such username already exists.");
+        }
+
+        tmpUser = userRepository.getUserByEmail(user.getEmail());
+        if (tmpUser != null) {
+            throw new IllegalArgumentException("User with such email already exists.");
+        }
+        return userRepository.save(user);
+    }
 }

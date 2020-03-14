@@ -38,9 +38,9 @@ public class TicketDto {
 
     private TicketDto parentTicket;
 
-    private UserDto assigneeId;
+    private UserDto assignee;
 
-    private UserDto reporterId;
+    private UserDto reporter;
 
     //TODO - change ids for dto, when functionality is ready
 

@@ -1,5 +1,6 @@
 package com.easy2manage.backend.service;
 
+import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.user.User;
 
 public interface UserService {
@@ -8,4 +9,6 @@ public interface UserService {
     User getUserByUsername(String username);
 
     User getUserByEmail(String email);
+
+    User createUser(User user);
 }
