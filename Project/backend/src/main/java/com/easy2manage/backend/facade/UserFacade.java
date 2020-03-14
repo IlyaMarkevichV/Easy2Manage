@@ -8,4 +8,6 @@ public interface UserFacade {
     UserDto createUser(CreateUserDto dto);
 
     UserDto getUserDto(Integer userId);
+
+    UserDto getUserByUsername(String username);
 }
