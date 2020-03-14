@@ -126,9 +126,8 @@ public class TicketFacadeImpl implements TicketFacade {
         ticketDto.setStartDate(ticketInfo.getStartDate());
         ticketDto.setDueDate(ticketInfo.getDueDate());
         ticketDto.setProject(projectFacade.getProjectDto(ticket.getProject().getId()));
+        ticketDto.setParentTicket(getTicket(ticket.getParentTicket().getId()));
         //TODO - add 4 sets
-        ticketDto.setParentTicket(ticket.getParentTicket());
-
         return ticketDto;
     }
 }
