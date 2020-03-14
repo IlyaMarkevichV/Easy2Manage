@@ -7,10 +7,12 @@ import com.easy2manage.backend.enums.ticket.TicketStatus;
 import com.easy2manage.backend.enums.ticket.TicketType;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.facade.TicketFacade;
+import com.easy2manage.backend.facade.UserFacade;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
 import com.easy2manage.backend.service.ProjectService;
 import com.easy2manage.backend.service.TicketService;
+import com.easy2manage.backend.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +32,13 @@ public class TicketFacadeImpl implements TicketFacade {
     private ProjectService projectService;
 
     @Resource
+    private UserService userService;
+
+    @Resource
     private ProjectFacade projectFacade;
+
+    @Resource
+    private UserFacade userFacade;
 
     @Override
     public TicketDto createTicket(CreateTicketDto dto) {
@@ -44,11 +52,13 @@ public class TicketFacadeImpl implements TicketFacade {
             ticket.setParentTicket(ticketService.getTicketById(parentTicketId));
         }
 
-        //TODO - add other fields like reported etc.
-
         ticketInfo.setTicket(ticket);
         ticket.setTicketInfo(ticketInfo);
         ticket.setProject(projectService.getProject(dto.getProjectId()));
+        ticket.setAssignee(userService.getUserById(dto.getAssigneeId()));
+        ticket.setReporter(userService.getUserById(dto.getReporterId()));
+
+        //TODO - add other fields like reported etc.
 
         return getDataFromModel(ticketService.createTicket(ticket));
     }
@@ -126,9 +136,15 @@ public class TicketFacadeImpl implements TicketFacade {
         ticketDto.setStartDate(ticketInfo.getStartDate());
         ticketDto.setDueDate(ticketInfo.getDueDate());
         ticketDto.setProject(projectFacade.getProjectDto(ticket.getProject().getId()));
-        //TODO - add 4 sets
-        ticketDto.setParentTicket(ticket.getParentTicket());
+        ticketDto.setAssignee(userFacade.getUserDto(ticket.getAssignee().getId()));
+        ticketDto.setReporter(userFacade.getUserDto(ticket.getReporter().getId()));
 
+        Ticket parent = ticket.getParentTicket();
+        if (parent != null) {
+            ticketDto.setParentTicket(getTicket(parent.getId()));
+        }
+
+        //TODO - add 1 set
         return ticketDto;
     }
 }

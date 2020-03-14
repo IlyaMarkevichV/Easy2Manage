@@ -42,12 +42,13 @@ public class CreateTicketDto {
 
     private Integer parentTicketId;
 
-    //TODO uncomment when functionality is ready
-    //@NotNull
+    @NotNull(message = "Assignee id should not be null.")
     private Integer assigneeId;
 
-    //@NotNull
+    @NotNull(message = "Reporter id should not be null.")
     private Integer reporterId;
+
+    //TODO uncomment when functionality is ready
 
     //@NotNull
     private Integer sprintId;
