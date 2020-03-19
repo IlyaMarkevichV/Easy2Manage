@@ -66,7 +66,7 @@ Angular позволяет создавать UI "на ходу", без нео�
 Наглядный пример желаемого GUI приведен с помощью [мокапов](https://github.com/IlyaMarkevichV/Easy2Manage/tree/master/Documentation/mockup) <br>
   
 ### As is architecture:<a name="as_is"/></a>
-[Диаграмма классов](https://github.com/IlyaMarkevichV/Easy2Manage/blob/master/Documentation/diagrams/class-diagram.jpg)  <br>
+[Диаграмма классов](https://github.com/IlyaMarkevichV/Easy2Manage/blob/master/Documentation/diagrams/class/class-diagram.jpg)  <br>
 
 ## Часть 3 <a name="part3"/></a>
 
