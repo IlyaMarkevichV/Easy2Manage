@@ -62,7 +62,7 @@ Angular позволяет создавать UI "на ходу", без нео�
 ## Часть 2 <a name="part2"/></a>
 
 ### To Be Архитектура: <a name="to_be"></a>
-Архитектурное решение команды по реализации идеи можно увидеть на [структурной схеме](https://github.com/IlyaMarkevichV/Easy2Manage/blob/master/Documentation/diagrams/deployment/deployment-diagram.jpg) <br>
+Архитектурное решение команды по реализации идеи можно увидеть на [структурной схеме](https://github.com/IlyaMarkevichV/Easy2Manage/blob/master/Documentation/diagrams/structure/%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%BD%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0.png) <br>
 Наглядный пример желаемого GUI приведен с помощью [мокапов](https://github.com/IlyaMarkevichV/Easy2Manage/tree/master/Documentation/mockup) <br>
   
 ### As is architecture:<a name="as_is"/></a>
