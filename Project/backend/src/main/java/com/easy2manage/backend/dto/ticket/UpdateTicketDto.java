@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.Column;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,9 +39,11 @@ public class UpdateTicketDto {
 
     private Integer assigneeId;
 
+
     private Float remaining;
 
     private Float logged;
+
 //    //TODO uncomment when functionality is ready
 //
 //    //@NotNull

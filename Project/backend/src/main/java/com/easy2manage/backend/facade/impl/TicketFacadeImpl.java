@@ -167,6 +167,7 @@ public class TicketFacadeImpl implements TicketFacade {
                 ticket.getTicketInfo().setTicketType(TicketType.valueOf(dto.getType().toUpperCase()));
             }
 
+
             if(dto.getRemaining() != null){
                 ticket.getTicketInfo().setRemaining(dto.getRemaining());
             }
@@ -174,6 +175,8 @@ public class TicketFacadeImpl implements TicketFacade {
             if(dto.getLogged() != null){
                 ticket.getTicketInfo().setLogged(dto.getLogged());
             }
+
+
 
             ticket = ticketService.updateTicket(ticket);
         } catch (IllegalArgumentException ex) {
