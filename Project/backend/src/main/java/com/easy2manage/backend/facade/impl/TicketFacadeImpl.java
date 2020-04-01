@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -165,6 +166,17 @@ public class TicketFacadeImpl implements TicketFacade {
             if (dto.getType() != null) {
                 ticket.getTicketInfo().setTicketType(TicketType.valueOf(dto.getType().toUpperCase()));
             }
+
+
+            if(dto.getRemaining() != null){
+                ticket.getTicketInfo().setRemaining(dto.getRemaining());
+            }
+
+            if(dto.getLogged() != null){
+                ticket.getTicketInfo().setLogged(dto.getLogged());
+            }
+
+
 
             ticket = ticketService.updateTicket(ticket);
         } catch (IllegalArgumentException ex) {
