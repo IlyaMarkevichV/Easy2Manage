@@ -3,6 +3,7 @@ package com.easy2manage.backend.controller;
 import com.easy2manage.backend.dto.StringResponse;
 import com.easy2manage.backend.dto.ticket.CreateTicketDto;
 import com.easy2manage.backend.dto.ticket.TicketDto;
+import com.easy2manage.backend.dto.ticket.UpdateTicketDto;
 import com.easy2manage.backend.facade.TicketFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,19 @@ public class TicketController {
                     .body("Server problem, can't create ticket. " + e.getMessage());
         }
     }
+
+    @PostMapping(value = "/update")
+    public ResponseEntity<?> updateTicket(@RequestBody @Valid UpdateTicketDto dto) {
+        try {
+            return ResponseEntity.ok(ticketFacade.updateTicket(dto));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Server problem, can't create ticket. " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> getTicket(@PathVariable(name = "id") Integer ticketId) {

@@ -4,6 +4,7 @@ import com.easy2manage.backend.model.ticket.Ticket;
 import org.springframework.data.domain.Page;
 
 public interface TicketService {
+    Ticket updateTicket(Ticket ticket);
     Ticket getTicketById(Integer id);
     Ticket getTicketByName(String name);
     Ticket createTicket(Ticket ticket);
