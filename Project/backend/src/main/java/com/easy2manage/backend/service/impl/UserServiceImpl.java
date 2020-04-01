@@ -6,12 +6,18 @@ import com.easy2manage.backend.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRepository userRepository;
+
+    @Override
+    public List<User> getAll() {
+        return (List<User>) userRepository.findAll();
+    }
 
     @Override
     public User getUserById(Integer id) {

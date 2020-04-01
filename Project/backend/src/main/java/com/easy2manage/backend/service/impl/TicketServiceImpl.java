@@ -18,6 +18,16 @@ public class TicketServiceImpl implements TicketService {
     private TicketRepository ticketRepository;
 
     @Override
+    public Ticket updateTicket(Ticket ticket) {
+        try {
+            ticketRepository.save(ticket);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unknown error");
+        }
+        return ticket;
+    }
+
+    @Override
     public Ticket getTicketById(Integer id) {
         return ticketRepository.getTicketById(id);
     }

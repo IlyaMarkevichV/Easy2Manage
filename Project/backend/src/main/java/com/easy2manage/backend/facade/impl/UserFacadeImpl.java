@@ -10,7 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Component
 public class UserFacadeImpl implements UserFacade {
@@ -22,6 +24,11 @@ public class UserFacadeImpl implements UserFacade {
 
     @Resource
     private BCryptPasswordEncoder encoder;
+
+    @Override
+    public List<UserDto> getAll() {
+        return userService.getAll().stream().map(this::getInfoFromModel).collect(Collectors.toList());
+    }
 
     @Override
     public UserDto createUser(CreateUserDto dto) {

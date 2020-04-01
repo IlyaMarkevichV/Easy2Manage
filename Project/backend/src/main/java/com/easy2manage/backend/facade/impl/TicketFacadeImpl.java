@@ -2,14 +2,17 @@ package com.easy2manage.backend.facade.impl;
 
 import com.easy2manage.backend.dto.ticket.CreateTicketDto;
 import com.easy2manage.backend.dto.ticket.TicketDto;
+import com.easy2manage.backend.dto.ticket.UpdateTicketDto;
 import com.easy2manage.backend.enums.ticket.TicketPriority;
 import com.easy2manage.backend.enums.ticket.TicketStatus;
 import com.easy2manage.backend.enums.ticket.TicketType;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.facade.TicketFacade;
 import com.easy2manage.backend.facade.UserFacade;
+import com.easy2manage.backend.model.Project;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
+import com.easy2manage.backend.model.user.User;
 import com.easy2manage.backend.service.ProjectService;
 import com.easy2manage.backend.service.TicketService;
 import com.easy2manage.backend.service.UserService;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +28,6 @@ import java.util.NoSuchElementException;
 
 @Component
 public class TicketFacadeImpl implements TicketFacade {
-
     @Resource
     private TicketService ticketService;
 
@@ -54,9 +57,22 @@ public class TicketFacadeImpl implements TicketFacade {
 
         ticketInfo.setTicket(ticket);
         ticket.setTicketInfo(ticketInfo);
-        ticket.setProject(projectService.getProject(dto.getProjectId()));
-        ticket.setAssignee(userService.getUserById(dto.getAssigneeId()));
-        ticket.setReporter(userService.getUserById(dto.getReporterId()));
+        Project project = projectService.getProject(dto.getProjectId());
+        if(project == null){
+            throw new IllegalArgumentException("There is no project with such id:" + dto.getProjectId());
+        }
+        User assignee = userService.getUserById(dto.getAssigneeId());
+        if(assignee == null){
+            throw new IllegalArgumentException("There is no assignee user with such id:" + dto.getAssigneeId());
+        }
+        User reporter = userService.getUserById(dto.getReporterId());
+        if(reporter == null){
+            throw new IllegalArgumentException("There is no reporter user with such id:" + dto.getReporterId());
+        }
+        ticket.setProject(project);
+        ticket.setAssignee(assignee);
+        ticket.setReporter(reporter);
+
 
         //TODO - add other fields like reported etc.
 
@@ -84,6 +100,7 @@ public class TicketFacadeImpl implements TicketFacade {
         return getDataFromModel(ticket);
     }
 
+
     @Override
     public List<TicketDto> getTickets(Integer projectId, Integer limit, Integer offset) {
         try {
@@ -102,6 +119,70 @@ public class TicketFacadeImpl implements TicketFacade {
         } catch (Exception e) {
             throw new IllegalArgumentException("Unknown exception.");
         }
+    }
+
+    @Override
+    public TicketDto updateTicket(UpdateTicketDto dto) {
+        Ticket ticket;
+        try {
+            ticket = ticketService.getTicketById(dto.getId());
+            if (ticket == null) {
+                throw (new NoSuchElementException("There is no ticket with such id:" +
+                        dto.getId()));
+            }
+            if (dto.getAssigneeId() != null) {
+                User user = userService.getUserById(dto.getAssigneeId());
+                if (user == null) {
+                    throw (new NoSuchElementException("There is no assignee with such id:" +
+                            +dto.getAssigneeId()));
+                }
+                ticket.setAssignee(user);
+            }
+
+            if (dto.getName() != null) {
+                ticket.setName(dto.getName());
+            }
+
+            if (dto.getDescription() != null) {
+                ticket.getTicketInfo().setDescription(dto.getDescription());
+            }
+
+            if (dto.getDueDate() != null) {
+                ticket.getTicketInfo().setDueDate(dto.getDueDate());
+            }
+
+            if (dto.getEstimated() != null) {
+                ticket.getTicketInfo().setEstimated(dto.getEstimated());
+            }
+
+            if (dto.getPriority() != null) {
+                ticket.getTicketInfo().setTicketPriority(TicketPriority.valueOf(dto.getPriority().toUpperCase()));
+            }
+
+            if (dto.getStatus() != null) {
+                ticket.getTicketInfo().setTicketStatus(TicketStatus.valueOf(dto.getStatus().toUpperCase()));
+            }
+
+            if (dto.getType() != null) {
+                ticket.getTicketInfo().setTicketType(TicketType.valueOf(dto.getType().toUpperCase()));
+            }
+
+
+            if(dto.getRemaining() != null){
+                ticket.getTicketInfo().setRemaining(dto.getRemaining());
+            }
+
+            if(dto.getLogged() != null){
+                ticket.getTicketInfo().setLogged(dto.getLogged());
+            }
+
+
+
+            ticket = ticketService.updateTicket(ticket);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Unknown exception");
+        }
+        return getDataFromModel(ticket);
     }
 
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {
