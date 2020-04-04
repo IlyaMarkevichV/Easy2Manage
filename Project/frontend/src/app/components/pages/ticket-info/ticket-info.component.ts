@@ -17,13 +17,14 @@ export class TicketInfoComponent implements OnInit {
   public tickets: Ticket[];
   public load: boolean = false;
 
-  constructor(private router: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               private serviceProj: ProjectService,
               private serviceTickets: TicketService,
               private sharedEvents: SharedEventsService) { }
 
   ngOnInit() {
-    this.router.queryParamMap.subscribe(params => {
+    this.activatedRoute.queryParamMap.subscribe(params => {
       this.serviceProj.getProject(params.get('id')).subscribe(data => {
         this.project = data;
         this.serviceTickets.getTickets(data.id, 1, 5).subscribe(data => {
@@ -39,5 +40,13 @@ export class TicketInfoComponent implements OnInit {
 
   public addTicket(event: any) {
     this.sharedEvents._setOnTicketCreate(this.project.id);
+  }
+
+  public navigateToTicket(ticketId: string) {
+    this.router.navigate(['ticket'], {
+      queryParams: {
+        id: ticketId
+      }
+    });
   }
 }

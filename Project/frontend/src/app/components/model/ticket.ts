@@ -10,6 +10,7 @@ export class Ticket {
   priority: string;
   status: string;
   assignee: User;
+  assigneeId: string;
   reporter: User;
   project: Project;
   projectId: string;

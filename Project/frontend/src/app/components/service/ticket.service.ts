@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../model/user";
 import {Observable} from "rxjs";
 import {Ticket} from "../model/ticket";
 
@@ -22,6 +21,15 @@ export class TicketService {
     });
     const options = {headers: headers};
     return this.http.post<Ticket>("api/ticket/create", json, options);
+  }
+
+  updateTicket(ticket: Ticket): Observable<Ticket> {
+    const json = JSON.stringify(ticket);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {headers: headers};
+    return this.http.post<Ticket>("api/ticket/update", json, options);
   }
 
   getTicket(ticketId: string): Observable<Ticket> {

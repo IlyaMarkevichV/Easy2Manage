@@ -1,0 +1,70 @@
+<div class="ticket-details">
+  <div *ngIf="load && ticket; else notFound" class="ticket-details__container">
+    <div class="ticket-details__container_header">
+      <h3><a class="ticket-details__link" (click)="navigateToProject(ticket.project.id)">{{ticket.project.name}}</a></h3>
+      <h2 [innerHTML]="ticket.name"></h2>
+    </div>
+    <div class="ticket-details__container_body">
+      <ng-container>
+        <div class="buttons">
+          <button class="button" (click)="editTicket($event)">Edit</button>
+          <button class="button" (click)="assignTicket($event)">Assign</button>
+          <button class="button" (click)="logWork($event)">Log Work</button>
+        </div>
+        <div class="grid grid-pad">
+          <div class="col-2-3">
+            <div class="module">
+              <h4>Details</h4>
+              <p>Type:      {{ticket.type}}</p>
+              <p>Priority:  {{ticket.priority}}</p>
+              <p>Status:    {{ticket.status}}</p>
+              <!--<p>Sprint:    {{ticket.sprint.name}}</p>-->
+            </div>
+            <div class="module">
+              <h4>Description</h4>
+              <p>{{ticket.description}}</p>
+            </div>
+          </div>
+          <div class="col-1-3">
+            <div class="module">
+              <h4>People</h4>
+              <p>Assignee:  {{ticket.assignee.username}}</p>
+              <p>Reporter:  {{ticket.reporter.username}}</p>
+            </div>
+            <div class="module">
+              <h4>Dates</h4>
+              <p>Due:       {{ticket.dueDate}}</p>
+              <p>Created:   {{ticket.startDate}}</p>
+            </div>
+            <div class="module">
+              <h4>Time Tracking</h4>
+              <p>Estimated: {{ticket.estimated}}</p>
+              <p>Remaining: {{ticket.remaining}}</p>
+              <p>Logged:    {{ticket.logged}}</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Comments</h4>
+          <p></p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="ticket-details__container_body">
+    <div class="ticket-details__not-found">
+      <p class="ticket-details__not-found_title">
+        There is no ticket with such id
+      </p>
+    </div>
+  </div>
+</ng-template>
+
+<!--<e2m-ticket-edit-popup-->
+  <!--[visible]="editTicketPopupVisible"-->
+  <!--(onClose)="closeEditTicketPopup()"-->
+  <!--(onSubmit)="modifyTicket($event)">-->
+<!--</e2m-ticket-edit-popup>-->

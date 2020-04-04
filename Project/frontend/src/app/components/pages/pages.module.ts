@@ -3,6 +3,7 @@ import {SharedModule} from '../shared/shared.module';
 import {NgModule} from '@angular/core';
 import { ProjectInfoComponent } from './project-info/project-info.component';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import {CommonModule} from "@angular/common";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ChartsModule} from "ng2-charts";
@@ -12,13 +13,14 @@ import {ChartsModule} from "ng2-charts";
   declarations: [
     LandingComponent,
     ProjectInfoComponent,
-    TicketInfoComponent
+    TicketInfoComponent,
+    TicketDetailsComponent
   ],
-    imports: [
-        SharedModule,
-        CommonModule,
-        DragDropModule,
-        ChartsModule
+  imports: [
+    SharedModule,
+    CommonModule,
+    DragDropModule,
+    ChartsModule
     ],
   providers: []
 })

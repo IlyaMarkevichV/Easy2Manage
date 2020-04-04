@@ -1,0 +1,96 @@
+<e2m-shared-popup
+  *ngIf="visible"
+  [header]="'Edit ticket'"
+  [closeable]="true"
+  (onClose)="_onClose()"
+  (onSubmit)="_onSubmit()"
+  [submitDisabled]="formGroup.invalid">
+  <ng-container>
+    <form class="edit-ticket" [formGroup]="formGroup">
+      <div class="form-group">
+        <label for="ticketName">Ticket name</label>
+        <input type="email"
+               class="form-control"
+               id="ticketName"
+               placeholder="Ticket name"
+               [formControlName]="controlFieldsEnum.name">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="Description"
+          [formControlName]="controlFieldsEnum.description">
+      </div>
+      <div class="form-group">
+        <label for="assignee">Assignee</label>
+        <select class="form-control" id="assignee"
+                [formControlName]="controlFieldsEnum.assigneeId">
+          <option>Select assignee</option>
+          <option *ngFor="let user of users">{{user.username}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control" id="type"
+                [formControlName]="controlFieldsEnum.type">
+          <option>Select type</option>
+          <option *ngFor="let type of types">{{type}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select class="form-control" id="priority"
+                [formControlName]="controlFieldsEnum.priority">
+          <option>Select priority</option>
+          <option *ngFor="let priority of priorities">{{priority}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status"
+                [formControlName]="controlFieldsEnum.status">
+          <option>Select status</option>
+          <option *ngFor="let status of statuses">{{status}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="estimated">Estimated</label>
+        <input
+          type="number"
+          class="form-control"
+          id="estimated"
+          placeholder="Estimated"
+          [formControlName]="controlFieldsEnum.estimated">
+      </div>
+      <div class="form-group">
+        <label for="remaining">Remaining</label>
+        <input
+          type="number"
+          class="form-control"
+          id="remaining"
+          placeholder="Remaining"
+          [formControlName]="controlFieldsEnum.remaining">
+      </div>
+      <div class="form-group">
+        <label for="logged">Logged</label>
+        <input
+          type="number"
+          class="form-control"
+          id="logged"
+          placeholder="Logged"
+          [formControlName]="controlFieldsEnum.logged">
+      </div>
+      <div class="form-group">
+        <label for="dueDate">Due date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dueDate"
+          [formControlName]="controlFieldsEnum.dueDate">
+      </div>
+    </form>
+  </ng-container>
+</e2m-shared-popup>

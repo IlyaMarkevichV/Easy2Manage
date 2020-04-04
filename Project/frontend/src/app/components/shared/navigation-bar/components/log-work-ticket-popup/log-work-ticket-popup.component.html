@@ -1,0 +1,26 @@
+<e2m-shared-popup
+  *ngIf="visible"
+  [header]="'Log Work'"
+  [closeable]="true"
+  (onClose)="_onClose()"
+  (onSubmit)="_onSubmit()"
+  [submitDisabled]="formGroup.invalid">
+  <ng-container>
+    <form class="logWork-ticket" [formGroup]="formGroup">
+      <div class="form-group">
+        <h3>{{ticket.name}}</h3>
+        <h4>Estimated:  {{ticket.estimated}}</h4>
+        <h4>Remaining:  {{ticket.remaining}}</h4>
+      </div>
+      <div class="form-group">
+        <label for="logged">Logged</label>
+        <input
+          type="number"
+          class="form-control"
+          id="logged"
+          placeholder="Logged"
+          [formControlName]="controlFieldsEnum.logged">
+      </div>
+    </form>
+  </ng-container>
+</e2m-shared-popup>

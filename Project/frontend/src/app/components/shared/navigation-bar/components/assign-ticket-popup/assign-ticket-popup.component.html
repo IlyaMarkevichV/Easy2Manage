@@ -1,0 +1,23 @@
+<e2m-shared-popup
+  *ngIf="visible"
+  [header]="'Assign'"
+  [closeable]="true"
+  (onClose)="_onClose()"
+  (onSubmit)="_onSubmit()"
+  [submitDisabled]="formGroup.invalid">
+  <ng-container>
+    <form class="assign-ticket" [formGroup]="formGroup">
+      <div class="form-group">
+        <label>{{ticket.name}}</label>
+      </div>
+      <div class="form-group">
+        <label for="assignee">Assignee</label>
+        <select class="form-control" id="assignee"
+                [formControlName]="controlFieldsEnum.assigneeId">
+          <option>Select assignee</option>
+          <option *ngFor="let user of users">{{user.username}}</option>
+        </select>
+      </div>
+    </form>
+  </ng-container>
+</e2m-shared-popup>

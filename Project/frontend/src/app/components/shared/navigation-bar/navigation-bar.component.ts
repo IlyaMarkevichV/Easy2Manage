@@ -16,8 +16,12 @@ export class NavigationBarComponent implements OnInit {
 
   public createProjectPopupVisible: boolean = false;
   public createTicketPopupVisible: boolean = false;
+  public editTicketPopupVisible: boolean = false;
+  public assignPopupVisible: boolean = false;
+  public logWorkPopupVisible: boolean = false;
 
   public selectedProject: Project;
+  public ticket: Ticket;
   public projects: Project[];
 
   constructor(private router: Router,
@@ -34,11 +38,23 @@ export class NavigationBarComponent implements OnInit {
     this.createProjectPopupVisible = true;
   }
 
+  public openEditTicketPopup(event?: any): void {
+    this.editTicketPopupVisible = true;
+  }
+
+  public openAssignTicketPopup(event?: any): void {
+    this.assignPopupVisible = true;
+  }
+
+  public openLogWorkTicketPopup(event?: any): void {
+    this.logWorkPopupVisible = true;
+  }
+
   public closeCreateProjectPopup(): void {
     this.createProjectPopupVisible = false;
   }
 
-  public openCreateTicketPopup(event: any): void {
+  public openCreateTicketPopup(event?: any): void {
     this.getAllProjects();
   }
 
@@ -68,7 +84,7 @@ export class NavigationBarComponent implements OnInit {
     this.service.saveProject(newProject).subscribe((project: Project) => {
         if (project) {
           this.closeCreateProjectPopup();
-          this.router.navigate(['tickets'], {
+          this.router.navigate(['project'], {
             queryParams: {
               id: project.id
             }
@@ -83,25 +99,55 @@ export class NavigationBarComponent implements OnInit {
   public createTicket(newTicket: Ticket): void {
     this.ticketService.saveTicket(newTicket).subscribe((ticket: Ticket) => {
       this.closeCreateTicketPopup();
-      this.router.navigate(['tickets'], {
-        queryParams: {
-          id: ticket.project.id
-        }
-      })
+      if (window.location.href.includes('tickets')) {
+        window.location.reload();
+      } else {
+        this.router.navigate(['ticket'], {
+          queryParams: {
+            id: ticket.id
+          }
+        })
+      }
     });
   }
 
   private initSubscriptions(): void {
     this.sharedEvents._getOnTicketCreate().subscribe((projectId: string) => {
       this.service.getProject(projectId).subscribe((project: Project) => {
-        this.selectedProject = project;
-        this.createTicketPopupVisible = true;
+        this.openCreateTicketPopup();
       });
     });
 
     this.sharedEvents._getOnProjectCreate().subscribe(() => {
       this.openCreateProjectPopup();
-    })
+    });
+
+    this.sharedEvents._getOnTicketEdit().subscribe(ticket => {
+      this.ticket = ticket;
+      this.openEditTicketPopup();
+    });
+
+    this.sharedEvents._getOnTicketAssign().subscribe(ticket => {
+      this.ticket = ticket;
+      this.openAssignTicketPopup();
+    });
+
+    this.sharedEvents._getOnTicketLogWork().subscribe(ticket => {
+      this.ticket = ticket;
+      this.openLogWorkTicketPopup();
+    });
+  }
+
+  public closeEditTicketPopup(): void {
+    this.editTicketPopupVisible = false;
+  }
+
+  public modifyTicket(newTicket: Ticket): void {
+    this.ticketService.updateTicket(newTicket).subscribe(ticket => {
+      // this.ticket = ticket;
+      this.closeEditTicketPopup();
+      window.location.reload();
+    });
   }
 
 }

@@ -32,7 +32,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   public moveToTickets(projectId: string): void {
-    this.router.navigate(['tickets'], {
+    this.router.navigate(['project'], {
       queryParams: {
         id: projectId
       }

@@ -1,0 +1,125 @@
+.ticket-details {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__link {
+    cursor: pointer;
+  }
+
+  &__container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    &_header {
+      border-bottom: 1px solid #BDBDBD;
+    }
+
+    &_body {
+      margin-top: 1rem;
+
+    }
+  }
+
+  &__not-found {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    width: 100%;
+    margin-top: 20rem;
+
+    &_title {
+      line-height: 1.5rem;
+      font-size: large;
+    }
+  }
+}
+
+[class*='col-'] {
+  float: left;
+}
+
+.col-2-3 {
+  width: 66.66%;
+}
+.col-1-3 {
+  width: 33.33%;
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.grid-pad {
+  padding-bottom: 20px;
+}
+
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+[class*='col-'] {
+  padding-right: 20px;
+}
+
+.module {
+  padding: 10px 10px 10px 10px
+}
+
+.button {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  outline: none;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 16px;
+  color: black;
+  background: aqua;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  margin: 5px;
+}
+
+.button span,
+.button i {
+  z-index: 2;
+}
+
+.button:active {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  transition: all 0.3s;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.button::before {
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: scale(0.1, 0.1);
+}
+
+.button:active::before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.button:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}

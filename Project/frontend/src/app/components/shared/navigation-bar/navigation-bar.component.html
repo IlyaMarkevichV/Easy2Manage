@@ -114,3 +114,27 @@
   (onClose)="closeCreateTicketPopup()"
   (onSubmit)="createTicket($event)">
 </e2m-create-ticket-popup>
+
+<e2m-ticket-edit-popup
+  *ngIf="editTicketPopupVisible"
+  [visible]="editTicketPopupVisible"
+  [ticket]="ticket"
+  (onClose)="closeEditTicketPopup()"
+  (onSubmit)="modifyTicket($event)">
+</e2m-ticket-edit-popup>
+
+<e2m-assign-ticket-popup
+  *ngIf="assignPopupVisible"
+  [visible]="assignPopupVisible"
+  [ticket]="ticket"
+  (onClose)="closeEditTicketPopup()"
+  (onSubmit)="modifyTicket($event)">
+</e2m-assign-ticket-popup>
+
+<e2e-log-work-ticket-popup
+  *ngIf="logWorkPopupVisible"
+  [visible]="logWorkPopupVisible"
+  [ticket]="ticket"
+  (onClose)="closeEditTicketPopup()"
+  (onSubmit)="modifyTicket($event)">
+</e2e-log-work-ticket-popup>
