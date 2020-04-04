@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {TicketEditPopupComponent} from './navigation-bar/components/ticket-edit-popup/ticket-edit-popup.component';
 import { AssignTicketPopupComponent } from './navigation-bar/components/assign-ticket-popup/assign-ticket-popup.component';
 import { LogWorkTicketPopupComponent } from './navigation-bar/components/log-work-ticket-popup/log-work-ticket-popup.component';
+import { AuthorizationPopupComponent } from './navigation-bar/components/authorization-popup/authorization-popup.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LogWorkTicketPopupComponent } from './navigation-bar/components/log-wor
     CreateTicketPopupComponent,
     TicketEditPopupComponent,
     AssignTicketPopupComponent,
-    LogWorkTicketPopupComponent
+    LogWorkTicketPopupComponent,
+    AuthorizationPopupComponent
   ],
   imports: [
     CommonModule,

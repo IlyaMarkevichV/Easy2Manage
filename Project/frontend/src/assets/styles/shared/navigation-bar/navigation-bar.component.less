@@ -11,9 +11,14 @@
 
 .nav {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
   &-left-menu {
-    display: -webkit-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
     flex: 0 0 75%;
     width: 100%;
     list-style: none;
@@ -57,7 +62,9 @@
   }
 
   &-right-menu {
-    display: -webkit-box;
+    display: flex;
+    flex-direction: row;
+
     flex: 0 0 25%;
     width: 100%;
     list-style: none;

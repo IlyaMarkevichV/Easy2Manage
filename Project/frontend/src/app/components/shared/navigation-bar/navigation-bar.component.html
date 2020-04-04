@@ -90,9 +90,28 @@
           <button class="btn nav-right-menu-item__button dropdown-toggle" id="dropdownProfile"
                   data-toggle="dropdown">
           </button>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
+          <ul *ngIf="!userAuthorized"
+            class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
             <li class="dropdown-item">
-              Log In
+              <button class="btn nav-left-menu__item-dropdown-item-link" (click)="navigateToRegistration()">
+                Sign up
+              </button>
+            </li>
+            <li class="dropdown-item">
+              <button class="btn nav-left-menu__item-dropdown-item-link" (click)="openLogInPopup()">
+                Log In
+              </button>
+            </li>
+          </ul>
+          <ul *ngIf="userAuthorized"
+            class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
+            <li class="dropdown-item">
+                {{'Hello ' + user.username}}
+            </li>
+            <li class="dropdown-item">
+              <button class="btn nav-left-menu__item-dropdown-item-link" (click)="proceedLogOut()">
+                Log Out
+              </button>
             </li>
           </ul>
         </li>
@@ -114,6 +133,12 @@
   (onClose)="closeCreateTicketPopup()"
   (onSubmit)="createTicket($event)">
 </e2m-create-ticket-popup>
+
+<e2m-authorization-popup
+  [visible]="logInPopupVisible"
+  (onAuthorize)="proceedAuthorization($event)"
+  (onClose)="closeLogInPopup()">
+</e2m-authorization-popup>
 
 <e2m-ticket-edit-popup
   *ngIf="editTicketPopupVisible"

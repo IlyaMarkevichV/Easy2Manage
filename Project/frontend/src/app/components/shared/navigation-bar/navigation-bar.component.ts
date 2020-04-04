@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Project} from "../../model/project";
-import {ProjectService} from "../../service/project.service";
-import {SharedEventsService} from "../../service/shared.events.service";
-import {Ticket} from "../../model/ticket";
-import {TicketService} from "../../service/ticket.service";
+import {Router} from '@angular/router';
+import {Project} from '../../model/project';
+import {ProjectService} from '../../service/project.service';
+import {SharedEventsService} from '../../service/shared.events.service';
+import {Ticket} from '../../model/ticket';
+import {TicketService} from '../../service/ticket.service';
+import {User} from '../../model/user';
+import {TokenProvider} from '../../http/token.provider';
 
 @Component({
   selector: 'e2m-navigation-bar',
@@ -13,13 +15,15 @@ import {TicketService} from "../../service/ticket.service";
 })
 export class NavigationBarComponent implements OnInit {
 
-
   public createProjectPopupVisible: boolean = false;
   public createTicketPopupVisible: boolean = false;
   public editTicketPopupVisible: boolean = false;
   public assignPopupVisible: boolean = false;
   public logWorkPopupVisible: boolean = false;
+  public logInPopupVisible: boolean = false;
+  public userAuthorized: boolean = false;
 
+  public user: User;
   public selectedProject: Project;
   public ticket: Ticket;
   public projects: Project[];
@@ -27,7 +31,8 @@ export class NavigationBarComponent implements OnInit {
   constructor(private router: Router,
               private service: ProjectService,
               private ticketService: TicketService,
-              private sharedEvents: SharedEventsService) {
+              private sharedEvents: SharedEventsService,
+              private tokenProvider: TokenProvider) {
   }
 
   ngOnInit() {
@@ -63,6 +68,14 @@ export class NavigationBarComponent implements OnInit {
     this.selectedProject = null;
   }
 
+  public openLogInPopup(): void {
+    this.logInPopupVisible = true;
+  }
+
+  public closeLogInPopup(): void {
+    this.logInPopupVisible = false;
+  }
+
   public navigateToProjects(): void {
     this.router.navigate(['projects']);
   }
@@ -88,7 +101,7 @@ export class NavigationBarComponent implements OnInit {
             queryParams: {
               id: project.id
             }
-          })
+          });
         }
       },
       () => {
@@ -136,6 +149,10 @@ export class NavigationBarComponent implements OnInit {
       this.ticket = ticket;
       this.openLogWorkTicketPopup();
     });
+
+    this.sharedEvents._getOnUserSignIn().subscribe((user: User) => {
+      this.proceedAuthorization(user);
+    });
   }
 
   public closeEditTicketPopup(): void {
@@ -148,6 +165,22 @@ export class NavigationBarComponent implements OnInit {
       this.closeEditTicketPopup();
       window.location.reload();
     });
+  }
+
+  public proceedAuthorization(user: User): void {
+    this.user = user;
+    this.userAuthorized = true;
+    this.logInPopupVisible = false;
+  }
+
+  public proceedLogOut(): void {
+    this.tokenProvider.removeToken();
+    this.userAuthorized = false;
+    this.user = null;
+  }
+
+  public navigateToRegistration(): void {
+    this.router.navigate(['registration']);
   }
 
 }

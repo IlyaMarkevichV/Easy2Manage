@@ -13,6 +13,8 @@ export class SharedPopupComponent implements OnInit {
   public closeable: boolean;
   @Input()
   public submitDisabled: boolean;
+  @Input()
+  public submitButtonName: string;
 
   @Output()
   public onClose: EventEmitter<any> = new EventEmitter<any>();

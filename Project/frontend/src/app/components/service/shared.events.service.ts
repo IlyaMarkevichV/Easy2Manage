@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable, Subject} from "rxjs";
+import {User} from '../model/user';
 import {Ticket} from '../model/ticket';
 
 @Injectable()
@@ -9,12 +10,14 @@ export class SharedEventsService {
   private onTicketEditObservable: Subject<Ticket> = new Subject<Ticket>();
   private onTicketAssignObservable: Subject<Ticket> = new Subject<Ticket>();
   private onTicketLogWorkObservable: Subject<Ticket> = new Subject<Ticket>();
+  private onUserSignInObservable: Subject<User> = new Subject<User>();
 
   private onTicketCreateObservable$: Observable<string> = this.onTicketCreateObservable.asObservable();
   private onProjectCreateObservable$: Observable<void> = this.onProjectCreateObservable.asObservable();
   private onTicketEditObservable$: Observable<Ticket> = this.onTicketEditObservable.asObservable();
   private onTicketAssignObservable$: Observable<Ticket> = this.onTicketAssignObservable.asObservable();
   private onTicketLogWorkObservable$: Observable<Ticket> = this.onTicketLogWorkObservable.asObservable();
+  private onUserSingInObservable$: Observable<User> = this.onUserSignInObservable.asObservable();
 
   constructor() {
   }
@@ -58,4 +61,12 @@ export class SharedEventsService {
   public _getOnTicketLogWork(): Observable<Ticket> {
     return this.onTicketLogWorkObservable$;
   }
+  public _setOnUserSignIn(user: User) {
+    this.onUserSignInObservable.next(user);
+  }
+
+  public _getOnUserSignIn(): Observable<User> {
+    return this.onUserSingInObservable$;
+  }
+
 }
