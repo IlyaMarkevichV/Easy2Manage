@@ -1,1 +1,82 @@
-<p>dashboards works!</p>
+<div class="dashboards">
+  <div class="dashboards__container">
+    <div class="dashboards__container_header">
+      <h2>Dashboards</h2>
+    </div>
+    <div class="dashboards__container_body">
+      <!--<ng-container *ngTemplateOutlet="notFound">
+      </ng-container>-->
+      <div class="dashboards__container_body-boards">
+        <div class="dashboards__container_body-boards__item">
+          <div class="dashboards__container_body-boards__item-header">
+            Header
+          </div>
+          <div class="dashboards__container_body-boards__item-content">
+            <ul class="dashboards__container_body-boards__item-content_items">
+              <li class="dashboards__container_body-boards__item-content_items__card">
+                <div class="dashboards__container_body-boards__item-content_items__card-status"
+                     [ngClass]="'blocker-bg'">
+                </div>
+                <div class="dashboards__container_body-boards__item-content_items__card-content">
+                  <div class="dashboards__container_body-boards__item-content_items__card-content-header">
+                    [E2M-1] The first ticket
+                  </div>
+                  <div class="dashboards__container_body-boards__item-content_items__card-content-body">
+                    <div class="dashboards__container_body-boards__item-content_items__card-content-body_description">
+                      Hello I'm description
+                    </div>
+                    <div class="dashboards__container_body-boards__item-content_items__card-content-body_details">
+                      <div
+                        class="dashboards__container_body-boards__item-content_items__card-content-body_details-left">
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <div [ngClass]="'normal'"></div>
+                          Normal
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <div [ngClass]="'bug'"></div>
+                          Bug
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          In progress
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          8h
+                        </div>
+                      </div>
+                      <div
+                        class="dashboards__container_body-boards__item-content_items__card-content-body_details-right">
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-right-item">
+                          <div [ngClass]="'assignee'"></div>
+                          Assignee
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="dashboards__not-found">
+    <p class="dashboards__not-found_title">
+      There is no boards yet
+    </p>
+    <button class="btn dashboards__not-found_add" (click)="navigateToSearch()">
+      <span class="btn dashboards__not-found_add-icon"></span>
+    </button>
+    <p class="dashboards__not-found_description">
+      Click here to add
+    </p>
+  </div>
+</ng-template>
