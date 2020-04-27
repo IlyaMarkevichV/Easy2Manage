@@ -4,13 +4,13 @@ import {NgModule} from '@angular/core';
 import {ProjectInfoComponent} from './project-info/project-info.component';
 import {TicketInfoComponent} from './ticket-info/ticket-info.component';
 import {TicketDetailsComponent} from './ticket-details/ticket-details.component';
-import {CommonModule} from "@angular/common";
-import {DragDropModule} from "@angular/cdk/drag-drop";
-import {ChartsModule} from "ng2-charts";
+import {CommonModule} from '@angular/common';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ChartsModule} from 'ng2-charts';
 import {UserRegistrationComponent} from './user-registration/user-registration.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import { FilterComponent } from './filter/filter.component';
-import { DashboardsComponent } from './dashboards/dashboards.component';
+import {SearchComponent} from './search/search.component';
+import {DashboardsComponent} from './dashboards/dashboards.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { DashboardsComponent } from './dashboards/dashboards.component';
     TicketInfoComponent,
     TicketDetailsComponent,
     UserRegistrationComponent,
-    FilterComponent,
+    SearchComponent,
     DashboardsComponent
   ],
   imports: [

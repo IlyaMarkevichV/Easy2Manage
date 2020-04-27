@@ -6,20 +6,14 @@
     <div class="nav">
       <ul class="nav-left-menu">
         <li class="nav-left-menu__item">
-          <button class="btn dropdown-toggle nav-left-menu__item-button" type="button"
-                  id="dropdownDashboards" data-toggle="dropdown">
-            Dashboards
+          <button class="btn nav-left-menu__item-button" type="button" routerLink="/dashboards" routerLinkActive="active">
+            My dashboards
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownDashboards">
+          <!--<ul class="dropdown-menu" aria-labelledby="dropdownDashboards">
             <li class="dropdown-item">
-              <a>My dashboard</a>
+              <a routerLink="/dashboards" routerLinkActive="active">My dashboard</a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-left-menu__item">
-          <button class="btn nav-left-menu__item-button" type="button">
-            Filter
-          </button>
+          </ul>-->
         </li>
         <li class="nav-left-menu__item">
           <button class="btn dropdown-toggle nav-left-menu__item-button" type="button"
@@ -47,6 +41,11 @@
             Tickets
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownTickets">
+            <li class="dropdown-item">
+              <button class="btn nav-left-menu__item-dropdown-item-link" routerLink="/search" routerLinkActive="active">
+                Search
+              </button>
+            </li>
             <li class="dropdown-item">
               <button
                 class="btn nav-left-menu__item-dropdown-item_add-project" (click)="openCreateTicketPopup($event)">

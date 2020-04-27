@@ -9,6 +9,7 @@ import {TicketEditPopupComponent} from './navigation-bar/components/ticket-edit-
 import { AssignTicketPopupComponent } from './navigation-bar/components/assign-ticket-popup/assign-ticket-popup.component';
 import { LogWorkTicketPopupComponent } from './navigation-bar/components/log-work-ticket-popup/log-work-ticket-popup.component';
 import { AuthorizationPopupComponent } from './navigation-bar/components/authorization-popup/authorization-popup.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthorizationPopupComponent } from './navigation-bar/components/authori
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     NavigationBarComponent
