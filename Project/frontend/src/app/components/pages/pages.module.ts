@@ -9,6 +9,8 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ChartsModule} from "ng2-charts";
 import {UserRegistrationComponent} from './user-registration/user-registration.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { FilterComponent } from './filter/filter.component';
+import { DashboardsComponent } from './dashboards/dashboards.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     ProjectInfoComponent,
     TicketInfoComponent,
     TicketDetailsComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    FilterComponent,
+    DashboardsComponent
   ],
   imports: [
     SharedModule,
