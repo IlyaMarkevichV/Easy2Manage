@@ -1,0 +1,23 @@
+<div class="projects">
+  <div class="projects__container">
+    <div class="projects__container_header">
+      <h2>Projects</h2>
+    </div>
+
+    <div class="projects__container_body">
+      <ul class="projects__container_body-content"
+          cdkDropList
+          [cdkDropListData]="projects"
+          (cdkDropListDropped)="drop($event)">
+        <li class="projects__container_body-content-item" *ngFor="let project of projects" cdkDrag>
+          <a class="btn projects__container_body-content-item_container"
+             (click)="moveToTickets(project.id)">
+            <div class="projects__container_body-content-item_container-details">
+              {{project.name}}
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
