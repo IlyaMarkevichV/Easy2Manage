@@ -7,11 +7,11 @@ import {TicketService} from "../../service/ticket.service";
 import {SharedEventsService} from "../../service/shared.events.service";
 
 @Component({
-  selector: 'e2m-ticket-info',
-  templateUrl: './ticket-info.component.html',
-  styleUrls: ['../../../../assets/styles/pages/ticket-info/ticket-info.component.less']
+  selector: 'e2m-project-details',
+  templateUrl: './project-details.component.html',
+  styleUrls: ['../../../../assets/styles/pages/project-details/project-details.component.less']
 })
-export class TicketInfoComponent implements OnInit {
+export class ProjectDetailsComponent implements OnInit {
 
   public project: Project;
   public tickets: Ticket[];

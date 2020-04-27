@@ -1,16 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from "../../service/project.service";
-import {Project} from "../../model/project";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {LogicalFileSystem, NodeJSFileSystem} from "@angular/compiler-cli/src/ngtsc/file_system";
-import {Router} from "@angular/router";
+import {ProjectService} from '../../service/project.service';
+import {Project} from '../../model/project';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'e2m-project-info',
-  templateUrl: './project-info.component.html',
-  styleUrls: ['../../../../assets/styles/pages/project-info/project-info.component.less']
+  selector: 'e2m-projects',
+  templateUrl: './projects.component.html',
+  styleUrls: ['../../../../assets/styles/pages/projects/projects.component.less']
 })
-export class ProjectInfoComponent implements OnInit {
+export class ProjectsComponent implements OnInit {
 
   public projects: Project[];
   public file: File;

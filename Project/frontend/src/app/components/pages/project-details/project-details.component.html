@@ -1,9 +1,9 @@
-<div class="ticket-info">
-  <div class="ticket-info__container">
-    <div *ngIf="load" class="ticket-info__container_header">
+<div class="project-details">
+  <div class="project-details__container">
+    <div *ngIf="load" class="project-details__container_header">
       <h2 [innerHTML]="project.name"></h2>
     </div>
-    <div class="ticket-info__container_body">
+    <div class="project-details__container_body">
       <ng-container *ngIf="load && tickets; else notFound">
         <table class="table">
           <thead class="thead-dark">
@@ -20,7 +20,7 @@
           <tbody>
             <tr *ngFor="let ticket of tickets">
               <td scope="row">{{ticket.id}}</td>
-              <td><a class="ticket-info__link" (click)="navigateToTicket(ticket.id)">{{ticket.project.name}}.{{ticket.name}}</a></td>
+              <td><a class="project-details__link" (click)="navigateToTicket(ticket.id)">{{ticket.project.name}}.{{ticket.name}}</a></td>
               <td>{{ticket.priority}}</td>
               <td>{{ticket.status}}</td>
               <td>{{ticket.assignee.username}}</td>
@@ -35,14 +35,14 @@
 </div>
 
 <ng-template #notFound>
-  <div class="ticket-info__not-found">
-    <p class="ticket-info__not-found_title">
+  <div class="project-details__not-found">
+    <p class="project-details__not-found_title">
       There is no tickets yet
     </p>
-    <button class="btn ticket-info__not-found_add" (click)="addTicket($event)">
-      <span class="btn ticket-info__not-found_add-icon"></span>
+    <button class="btn project-details__not-found_add" (click)="addTicket($event)">
+      <span class="btn project-details__not-found_add-icon"></span>
     </button>
-    <p class="ticket-info__not-found_description">
+    <p class="project-details__not-found_description">
       Click here to add
     </p>
   </div>
