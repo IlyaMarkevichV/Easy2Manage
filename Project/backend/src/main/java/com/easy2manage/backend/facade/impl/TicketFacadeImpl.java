@@ -9,6 +9,7 @@ import com.easy2manage.backend.enums.ticket.TicketType;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.facade.TicketFacade;
 import com.easy2manage.backend.facade.UserFacade;
+import com.easy2manage.backend.model.Filter;
 import com.easy2manage.backend.model.Project;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
@@ -183,6 +184,11 @@ public class TicketFacadeImpl implements TicketFacade {
             throw new IllegalArgumentException("Unknown exception");
         }
         return getDataFromModel(ticket);
+    }
+
+    @Override
+    public List<TicketDto> getTicketsByFilter(Filter filter) {
+        return null; //TODO - get tickets by filter
     }
 
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {
