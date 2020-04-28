@@ -51,7 +51,7 @@ CREATE TABLE `easy2manage`.`user_info` (
 CREATE TABLE `easy2manage`.`dashboard` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `filter_id` INT NULL,
+  `filter_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`));
 
