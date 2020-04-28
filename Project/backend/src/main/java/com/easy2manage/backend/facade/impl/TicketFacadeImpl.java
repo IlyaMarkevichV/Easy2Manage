@@ -9,6 +9,7 @@ import com.easy2manage.backend.enums.ticket.TicketType;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.facade.TicketFacade;
 import com.easy2manage.backend.facade.UserFacade;
+import com.easy2manage.backend.model.Filter;
 import com.easy2manage.backend.model.Project;
 import com.easy2manage.backend.model.ticket.Ticket;
 import com.easy2manage.backend.model.ticket.TicketInfo;
@@ -20,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -183,6 +183,14 @@ public class TicketFacadeImpl implements TicketFacade {
             throw new IllegalArgumentException("Unknown exception");
         }
         return getDataFromModel(ticket);
+    }
+
+    @Override
+    public List<TicketDto> getTicketsByFilter(Filter filter) {
+        List<Ticket> tickets = ticketService.getTicketsByQuery(filter.getQuery());
+        List<TicketDto> dto = new ArrayList<>();
+        tickets.forEach(ticket -> dto.add(getDataFromModel(ticket)));
+        return dto;
     }
 
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {

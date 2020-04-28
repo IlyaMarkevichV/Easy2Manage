@@ -33,9 +33,9 @@ CREATE TABLE `easy2manage`.`ticket_info` (
   `estimated` FLOAT NOT NULL,
   `remaining` FLOAT NOT NULL,
   `logged` FLOAT NULL,
-  `type` ENUM('STORY', 'DEV TASK', 'DEFECT') NOT NULL,
+  `type` ENUM('STORY', 'DEV_TASK', 'DEFECT') NOT NULL,
   `priority` ENUM('LOW', 'NORMAL', 'MAJOR', 'CRITICAL', 'BLOCKER') NOT NULL,
-  `status` ENUM('OPEN', 'IN BUILD', 'IN DESIGN', 'IN ANALYSIS', 'READY FOR DESIGN', 'ON HOLD', 'READY FOR TESTING', 'REOPENED', 'CLOSED', 'IN QA', 'READY FOR BUILD', 'QA DONE', 'IMPLEMENT') NOT NULL,
+  `status` ENUM('OPEN', 'IN_BUILD', 'IN_DESIGN', 'IN_ANALYSIS', 'READY_FOR_DESIGN', 'ON_HOLD', 'READY_FOR_TESTING', 'REOPENED', 'CLOSED', 'IN_QA', 'READY_FOR BUILD', 'QA_DONE', 'IMPLEMENT') NOT NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `easy2manage`.`user_info` (
@@ -51,7 +51,7 @@ CREATE TABLE `easy2manage`.`user_info` (
 CREATE TABLE `easy2manage`.`dashboard` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
-  `filter_id` INT NOT NULL,
+  `filter_id` INT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`));
 
