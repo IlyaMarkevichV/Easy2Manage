@@ -27,9 +27,10 @@ import {RouterModule} from '@angular/router';
     ReactiveFormsModule,
     RouterModule
   ],
-  exports: [
-    NavigationBarComponent
-  ],
+    exports: [
+        NavigationBarComponent,
+        SharedPopupComponent
+    ],
   providers: []
 })
 export class SharedModule {
