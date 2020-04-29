@@ -21,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -188,7 +187,10 @@ public class TicketFacadeImpl implements TicketFacade {
 
     @Override
     public List<TicketDto> getTicketsByFilter(Filter filter) {
-        return null; //TODO - get tickets by filter
+        List<Ticket> tickets = ticketService.getTicketsByQuery(filter.getQuery());
+        List<TicketDto> dto = new ArrayList<>();
+        tickets.forEach(ticket -> dto.add(getDataFromModel(ticket)));
+        return dto;
     }
 
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {
