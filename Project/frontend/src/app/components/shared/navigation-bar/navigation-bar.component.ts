@@ -83,7 +83,7 @@ export class NavigationBarComponent implements OnInit {
   public openNotification(text: string): void {
     this.notificationText = text;
     this.showNotification = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.closeNotification();
     }, 3000);
   }
@@ -136,7 +136,7 @@ export class NavigationBarComponent implements OnInit {
           queryParams: {
             id: ticket.id
           }
-        })
+        });
       }
     });
   }
@@ -192,12 +192,14 @@ export class NavigationBarComponent implements OnInit {
     this.user = user;
     this.userAuthorized = true;
     this.logInPopupVisible = false;
+    this.navigateToDashboards();
   }
 
   public proceedLogOut(): void {
     this.tokenProvider.removeToken();
     this.userAuthorized = false;
     this.user = null;
+    this.navigateToLanding();
   }
 
   public navigateToRegistration(): void {
@@ -206,9 +208,21 @@ export class NavigationBarComponent implements OnInit {
 
   public navigateToDashboards(): void {
     if (!this.user) {
-      this.openNotification("Log In please");
+      this.openNotification('Log In please');
     } else {
       this.router.navigate(['dashboards'], {
+        queryParams: {
+          userId: this.user.id
+        }
+      });
+    }
+  }
+
+  public navigateToSearch(): void {
+    if (!this.user) {
+      this.openNotification('Log In please');
+    } else {
+      this.router.navigate(['search'], {
         queryParams: {
           userId: this.user.id
         }

@@ -42,7 +42,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownTickets">
             <li class="dropdown-item">
-              <button class="btn nav-left-menu__item-dropdown-item-link" routerLink="/search" routerLinkActive="active">
+              <button class="btn nav-left-menu__item-dropdown-item-link" (click)="navigateToSearch()">
                 Search
               </button>
             </li>
@@ -99,7 +99,7 @@
           <ul *ngIf="userAuthorized"
             class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
             <li class="dropdown-item">
-              {{'Hello ' + user.username}}
+              <p class="username-value">{{'Hello, ' + user.username}}</p>
             </li>
             <li class="dropdown-item">
               <button class="btn nav-left-menu__item-dropdown-item-link" (click)="proceedLogOut()">

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PriorityEnum} from '../../enum/priority.enum';
 import {StatusEnum} from '../../enum/status.enum';
 import {TypeEnum} from '../../enum/type.enum';
 import {FilterValue} from '../../model/filter-value';
 import {Ticket} from '../../model/ticket';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FilterService} from '../../service/filter.service';
 import {FilterParam} from '../../model/filterParam';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -30,7 +30,7 @@ export enum FiltersEnum {
   templateUrl: './search.component.html',
   styleUrls: ['../../../../assets/styles/pages/search/search.component.less']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   public priorities: any = PriorityEnum;
   public statuses: any = StatusEnum;
@@ -41,6 +41,7 @@ export class SearchComponent implements OnInit {
   public contentReady: boolean = true;
   public dashboardNamePopupVisible: boolean = false;
   public dashboardId: string;
+  public userId: string = '1';
   public dashboardName: string = "Dashboard";
   public projects: Project[] = [];
   public users: User[] = [];
@@ -50,13 +51,19 @@ export class SearchComponent implements OnInit {
   public filters: Map<string, FilterValue[]> = new Map<string, FilterValue[]>();
 
   constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private filterService: FilterService,
               private projectService: ProjectService,
               private userService: UserService,
-              private dashBoardService: DashboardService) {
+              private dashBoardService: DashboardService,
+              private spinnerService: NgxSpinnerService) {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
+    this.activatedRoute.queryParamMap.subscribe((params: any) => {
+      this.userId = params.get('userId');
+    });
     this.initFilters();
     this.initDashboard();
   }
@@ -116,7 +123,7 @@ export class SearchComponent implements OnInit {
   }
 
   public saveFilters(): void {
-    this.dashBoardService.createDashboard(SearchComponent.createDashboard(this.dashboardName)).subscribe(dashboard => {
+    this.dashBoardService.createDashboard(SearchComponent.createDashboard(this.dashboardName, this.userId)).subscribe(dashboard => {
       this.filterService.createFilter(dashboard.id, dashboard.name).subscribe(() => {
         this.addParams(dashboard.id);
         this.navigateToDashboards();
@@ -133,7 +140,11 @@ export class SearchComponent implements OnInit {
   }
 
   public navigateToDashboards(): void {
-    this.router.navigate(['dashboards']);
+    this.router.navigate(['dashboards'], {
+      queryParams: {
+        userId: this.userId
+      }
+    });
   }
 
   public setDashboardPopupVisible(): void {
@@ -200,11 +211,12 @@ export class SearchComponent implements OnInit {
   }
 
   public initDashboard(): void {
-    this.dashBoardService.createDashboard(SearchComponent.createDashboard("Filter")).subscribe(dashboard => {
+    this.dashBoardService.createDashboard(SearchComponent.createDashboard("Filter", this.userId)).subscribe(dashboard => {
       this.dashboardId = dashboard.id;
       this.filterService.createFilter(this.dashboardId, "Filter").subscribe(() => {
         this.dashBoardService.getDashboard(this.dashboardId).subscribe(dashboard => {
           this.tickets = dashboard.tickets;
+          this.spinnerService.hide();
         })
       })
     })
@@ -219,10 +231,10 @@ export class SearchComponent implements OnInit {
     return param;
   }
 
-  public static createDashboard(name: string): Dashboard {
+  public static createDashboard(name: string, userId: string): Dashboard {
     let dashboard = new Dashboard();
     dashboard.name = name;
-    dashboard.userId = "1";
+    dashboard.userId = userId;
     return dashboard;
   }
 
@@ -230,5 +242,9 @@ export class SearchComponent implements OnInit {
     let dbValue = value.replace(" ", "_");
     dbValue = dbValue.toUpperCase();
     return dbValue;
+  }
+
+  public ngOnDestroy(): void {
+    this.dashBoardService.deleteDashboard(this.dashboardId).subscribe();
   }
 }
