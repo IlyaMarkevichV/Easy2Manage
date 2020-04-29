@@ -43,6 +43,9 @@ public class FilterController {
 
     @PostMapping(value = "/addParam")
     public ResponseEntity<?> addParam(@RequestBody @Validated ParamDto paramDto, BindingResult bindingResult) {
+        if (paramDto.getParamValues().size() == 0) {
+            return ResponseEntity.ok(null);
+        }
         boolean containsErrors = bindingResult.hasErrors();
         if (containsErrors) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

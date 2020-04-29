@@ -15,7 +15,6 @@ import {DashboardService} from '../../service/dashboard.service';
 import {Dashboard} from '../../model/dashboard';
 import {Project} from '../../model/project';
 import {User} from '../../model/user';
-import {NgxSpinnerService} from 'ngx-spinner';
 
 export enum FiltersEnum {
   Project = 'Project',
@@ -149,51 +148,55 @@ export class SearchComponent implements OnInit {
     })
   }
 
-  addParams(dashboardId): void {
-    this.filters.forEach((values, key, map) => {
-      let param = new FilterParam();
-      param.modifier = "CONTAINS";
-      param.dashboardId = dashboardId;
-      if (key == FiltersEnum.Project) {
-        param.paramName = "project_id";
-        param.paramValues = [];
-        values.filter(value => value.selected).forEach(value => {
-          this.projects.forEach(project => {
-            if (project.name == value.name) {
-              param.paramValues.push(project.id);
-            }
-          })
-        })
-      } else {
-        param.paramName = key;
-        param.paramValues = [];
-        values.filter(value => value.selected).forEach(value =>
-          param.paramValues.push(SearchComponent.convertToDbValues(value.name)));
-      }
-      if (param.paramValues.length != 0) {
-        this.filterService.addParam(param).subscribe(filter => {
-          console.log(filter.query);
-        });
-      }
-    })
-  }
-
-  public addParamsA(dashboardId: string): void {
-    let param = this.createParam(dashboardId, "project_id");
+  public addParams(dashboardId: string): void {
+    let param = this.createParam(dashboardId, 'project_id');
     this.filters.get(FiltersEnum.Project).filter(value => value.selected).forEach(value => {
       this.projects.forEach(project => {
         if (project.name == value.name) {
           param.paramValues.push(project.id);
         }
-      })
+      });
     });
-    if (param.paramValues.length != 0) {
-      this.filterService.addParam(param).subscribe(filter => {
-        console.log(filter.query);
-        let param = this.createParam(dashboardId, "status");
-        this.filters.get(FiltersEnum.Status).filter(value => )
-      })
-    }
+    this.filterService.addParam(param).subscribe(() => {
+      let param = this.createParam(dashboardId, 'status');
+      this.filters.get(FiltersEnum.Status).filter(value => value.selected).forEach(value =>
+        param.paramValues.push(SearchComponent.convertToDbValues(value.name)));
+      this.filterService.addParam(param).subscribe(() => {
+        let param = this.createParam(dashboardId, 'type');
+        this.filters.get(FiltersEnum.Type).filter(value => value.selected).forEach(value =>
+          param.paramValues.push(SearchComponent.convertToDbValues(value.name)));
+        this.filterService.addParam(param).subscribe(() => {
+          let param = this.createParam(dashboardId, 'priority');
+          this.filters.get(FiltersEnum.Priority).filter(value => value.selected).forEach(value =>
+            param.paramValues.push(SearchComponent.convertToDbValues(value.name)));
+          this.filterService.addParam(param).subscribe(() => {
+            let param = this.createParam(dashboardId, 'assignee_id');
+            this.filters.get(FiltersEnum.Assignee).filter(value => value.selected).forEach(value => {
+              this.users.forEach(user => {
+                if (user.username == value.name) {
+                  param.paramValues.push(user.id);
+                }
+              });
+            });
+            this.filterService.addParam(param).subscribe(() => {
+              let param = this.createParam(dashboardId, 'reporter_id');
+              this.filters.get(FiltersEnum.Reporter).filter(value => value.selected).forEach(value => {
+                this.users.forEach(user => {
+                  if (user.username == value.name) {
+                    param.paramValues.push(user.id);
+                  }
+                });
+              });
+              this.filterService.addParam(param).subscribe(() => {
+                this.dashBoardService.getDashboard(this.dashboardId).subscribe(dashboard => {
+                  this.tickets = dashboard.tickets;
+                });
+              });
+            });
+          });
+        });
+      });
+    });
   }
 
   public initDashboard(): void {
