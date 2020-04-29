@@ -14,6 +14,7 @@ export class DashboardsComponent implements OnInit {
   public dashboards: Dashboard[];
 
   public contentReady: boolean = false;
+  public userId: string;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -28,7 +29,8 @@ export class DashboardsComponent implements OnInit {
   private initDashboards(): void {
     this.spinnerService.show();
     this.activatedRoute.queryParamMap.subscribe((params: any) => {
-      this.dashboardService.getAllUserDashboards(params.get('userId')).subscribe((data: Dashboard[]) => {
+      this.userId = params.get('userId');
+      this.dashboardService.getAllUserDashboards(this.userId).subscribe((data: Dashboard[]) => {
         this.dashboards = data;
         this.contentReady = true;
         this.spinnerService.hide();
@@ -37,7 +39,11 @@ export class DashboardsComponent implements OnInit {
   }
 
   public navigateToSearch(): void {
-    this.router.navigate(['search']);
+    this.router.navigate(['search'], {
+      queryParams: {
+        userId: this.userId
+      }
+    });
   }
 
   public navigateToTicket(ticketId: string): void {

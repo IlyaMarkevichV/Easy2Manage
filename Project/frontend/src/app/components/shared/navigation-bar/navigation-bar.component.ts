@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Project} from '../../model/project';
 import {ProjectService} from '../../service/project.service';
@@ -8,13 +8,14 @@ import {TicketService} from '../../service/ticket.service';
 import {User} from '../../model/user';
 import {TokenProvider} from '../../http/token.provider';
 import {NotificationsService} from '../../service/notifications.service';
+import {LocalStorageProvider} from '../../service/local-storage.provider';
 
 @Component({
   selector: 'e2m-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['../../../../assets/styles/shared/navigation-bar/navigation-bar.component.less']
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent implements OnInit, OnDestroy {
 
   public createProjectPopupVisible: boolean = false;
   public createTicketPopupVisible: boolean = false;
@@ -36,10 +37,12 @@ export class NavigationBarComponent implements OnInit {
               private ticketService: TicketService,
               private sharedEvents: SharedEventsService,
               private notificationsService: NotificationsService,
-              private tokenProvider: TokenProvider) {
+              private tokenProvider: TokenProvider,
+              private localStorageProvider: LocalStorageProvider) {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(this.localStorageProvider.getItem('user'));
     this.initSubscriptions();
   }
 
@@ -190,6 +193,7 @@ export class NavigationBarComponent implements OnInit {
 
   public proceedAuthorization(user: User): void {
     this.user = user;
+    this.localStorageProvider.saveItem('user', JSON.stringify(this.user));
     this.userAuthorized = true;
     this.logInPopupVisible = false;
     this.navigateToDashboards();
@@ -198,6 +202,7 @@ export class NavigationBarComponent implements OnInit {
   public proceedLogOut(): void {
     this.tokenProvider.removeToken();
     this.userAuthorized = false;
+    this.localStorageProvider.removeItem('user');
     this.user = null;
     this.navigateToLanding();
   }
@@ -228,5 +233,9 @@ export class NavigationBarComponent implements OnInit {
         }
       });
     }
+  }
+
+  public ngOnDestroy(): void {
+    this.localStorageProvider.removeItem('user');
   }
 }

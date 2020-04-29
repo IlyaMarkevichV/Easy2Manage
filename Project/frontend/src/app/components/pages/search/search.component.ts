@@ -140,10 +140,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   public navigateToDashboards(): void {
-    this.router.navigate(['dashboards'], {
-      queryParams: {
-        userId: this.userId
-      }
+    this.dashBoardService.deleteDashboard(this.dashboardId).subscribe(() => {
+      this.router.navigate(['dashboards'], {
+        queryParams: {
+          userId: this.userId
+        }
+      });
     });
   }
 
@@ -152,6 +154,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   modifyFilter(): void {
+    this.spinnerService.show();
     this.filterService.deleteFilter(this.dashboardId).subscribe(() => {
       this.filterService.createFilter(this.dashboardId, "Filter").subscribe(() => {
         this.addParams(this.dashboardId);
@@ -201,6 +204,7 @@ export class SearchComponent implements OnInit, OnDestroy {
               this.filterService.addParam(param).subscribe(() => {
                 this.dashBoardService.getDashboard(this.dashboardId).subscribe(dashboard => {
                   this.tickets = dashboard.tickets;
+                  this.spinnerService.hide();
                 });
               });
             });

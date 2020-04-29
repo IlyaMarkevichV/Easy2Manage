@@ -3,10 +3,10 @@
     <div class="dashboards__container_header">
       <h2>Dashboards</h2>
     </div>
-    <div class="dashboards__container_body">
+    <div class="dashboards__container_body" *ngIf="contentReady">
       <!--<ng-container *ngTemplateOutlet="notFound">
       </ng-container>-->
-      <div class="dashboards__container_body-boards" *ngIf="contentReady">
+      <div class="dashboards__container_body-boards" *ngIf="dashboards.length !== 0; else notFound">
         <div class="dashboards__container_body-boards__item" *ngFor="let dashboard of dashboards">
           <div class="dashboards__container_body-boards__item-header">
             {{dashboard.name}}
