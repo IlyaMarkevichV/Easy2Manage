@@ -6,7 +6,7 @@
     <div class="nav">
       <ul class="nav-left-menu">
         <li class="nav-left-menu__item">
-          <button class="btn nav-left-menu__item-button" type="button" routerLink="/dashboards" routerLinkActive="active">
+          <button class="btn nav-left-menu__item-button" type="button" (click)="navigateToDashboards()">
             My dashboards
           </button>
           <!--<ul class="dropdown-menu" aria-labelledby="dropdownDashboards">
@@ -99,7 +99,7 @@
           <ul *ngIf="userAuthorized"
             class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownProfile">
             <li class="dropdown-item">
-                {{'Hello ' + user.username}}
+              {{'Hello ' + user.username}}
             </li>
             <li class="dropdown-item">
               <button class="btn nav-left-menu__item-dropdown-item-link" (click)="proceedLogOut()">
@@ -112,6 +112,14 @@
     </div>
   </div>
 </header>
+
+<e2m-notifications
+  *ngIf="showNotification"
+  class="wow bounceInDown"
+  [text]="notificationText"
+  [closeable]="true"
+  (onClose)="closeNotification()">
+</e2m-notifications>
 
 <e2m-create-project-popup
   [visible]="createProjectPopupVisible"

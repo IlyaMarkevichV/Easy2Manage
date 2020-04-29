@@ -15,6 +15,7 @@ import {AuthInterceptor} from './components/http/auth.interceptor';
 import {LocalStorageProvider} from './components/service/local-storage.provider';
 import {TokenProvider} from './components/http/token.provider';
 import {AuthorizationService} from './components/service/authorization.service';
+import {NotificationsService} from './components/service/notifications.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {AuthorizationService} from './components/service/authorization.service';
     SharedEventsService,
     LocalStorageProvider,
     TokenProvider,
+    NotificationsService,
     AuthorizationService,
     {
       provide: HTTP_INTERCEPTORS,

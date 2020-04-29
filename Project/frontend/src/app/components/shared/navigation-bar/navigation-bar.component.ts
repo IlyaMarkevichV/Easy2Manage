@@ -7,6 +7,7 @@ import {Ticket} from '../../model/ticket';
 import {TicketService} from '../../service/ticket.service';
 import {User} from '../../model/user';
 import {TokenProvider} from '../../http/token.provider';
+import {NotificationsService} from '../../service/notifications.service';
 
 @Component({
   selector: 'e2m-navigation-bar',
@@ -22,16 +23,19 @@ export class NavigationBarComponent implements OnInit {
   public logWorkPopupVisible: boolean = false;
   public logInPopupVisible: boolean = false;
   public userAuthorized: boolean = false;
+  public showNotification: boolean = false;
 
   public user: User;
   public selectedProject: Project;
   public ticket: Ticket;
   public projects: Project[];
+  public notificationText: string;
 
   constructor(private router: Router,
               private service: ProjectService,
               private ticketService: TicketService,
               private sharedEvents: SharedEventsService,
+              private notificationsService: NotificationsService,
               private tokenProvider: TokenProvider) {
   }
 
@@ -74,6 +78,19 @@ export class NavigationBarComponent implements OnInit {
 
   public closeLogInPopup(): void {
     this.logInPopupVisible = false;
+  }
+
+  public openNotification(text: string): void {
+    this.notificationText = text;
+    this.showNotification = true;
+    setTimeout(()=>{
+      this.closeNotification();
+    }, 3000);
+  }
+
+  public closeNotification(): void {
+    this.showNotification = false;
+    this.notificationText = null;
   }
 
   public navigateToProjects(): void {
@@ -153,6 +170,10 @@ export class NavigationBarComponent implements OnInit {
     this.sharedEvents._getOnUserSignIn().subscribe((user: User) => {
       this.proceedAuthorization(user);
     });
+
+    this.notificationsService._getOnOpenNotification().subscribe((text: string) => {
+      this.openNotification(text);
+    });
   }
 
   public closeEditTicketPopup(): void {
@@ -183,4 +204,15 @@ export class NavigationBarComponent implements OnInit {
     this.router.navigate(['registration']);
   }
 
+  public navigateToDashboards(): void {
+    if (!this.user) {
+      this.openNotification("Log In please");
+    } else {
+      this.router.navigate(['dashboards'], {
+        queryParams: {
+          userId: this.user.id
+        }
+      });
+    }
+  }
 }

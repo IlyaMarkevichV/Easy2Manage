@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TicketService} from '../../service/ticket.service';
 import {Ticket} from '../../model/ticket';
 import {SharedEventsService} from '../../service/shared.events.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-ticket-details',
@@ -16,18 +17,21 @@ export class TicketDetailsComponent implements OnInit {
   public logWorkPopupVisible: boolean = false;
 
   public ticket: Ticket;
-  public load: boolean = false;
+  public contentReady: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private ticketService: TicketService,
-              private sharedService: SharedEventsService) { }
+              private sharedService: SharedEventsService,
+              private spinnerService: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.ticketService.getTicket(params.get('id')).subscribe(data => {
         this.ticket = data;
-        this.load = true;
+        this.contentReady = true;
+        this.spinnerService.hide();
       })
     })
   }

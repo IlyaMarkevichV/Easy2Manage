@@ -6,45 +6,54 @@
     <div class="dashboards__container_body">
       <!--<ng-container *ngTemplateOutlet="notFound">
       </ng-container>-->
-      <div class="dashboards__container_body-boards">
-        <div class="dashboards__container_body-boards__item">
+      <div class="dashboards__container_body-boards" *ngIf="contentReady">
+        <div class="dashboards__container_body-boards__item" *ngFor="let dashboard of dashboards">
           <div class="dashboards__container_body-boards__item-header">
-            Header
+            {{dashboard.name}}
           </div>
           <div class="dashboards__container_body-boards__item-content">
             <ul class="dashboards__container_body-boards__item-content_items">
-              <li class="dashboards__container_body-boards__item-content_items__card">
+              <li class="dashboards__container_body-boards__item-content_items__card"
+                  *ngFor="let ticket of dashboard.tickets">
                 <div class="dashboards__container_body-boards__item-content_items__card-status"
                      [ngClass]="'blocker-bg'">
                 </div>
                 <div class="dashboards__container_body-boards__item-content_items__card-content">
                   <div class="dashboards__container_body-boards__item-content_items__card-content-header">
-                    [E2M-1] The first ticket
+                    <a class="ticket-link" (click)="navigateToTicket(ticket.id)">{{ticket.name}}</a>
                   </div>
                   <div class="dashboards__container_body-boards__item-content_items__card-content-body">
                     <div class="dashboards__container_body-boards__item-content_items__card-content-body_description">
-                      Hello I'm description
+                      {{ticket.description}}
                     </div>
                     <div class="dashboards__container_body-boards__item-content_items__card-content-body_details">
                       <div
                         class="dashboards__container_body-boards__item-content_items__card-content-body_details-left">
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
-                          <div [ngClass]="'normal'"></div>
-                          Normal
+                          <div [ngClass]="ticket.priority.toLowerCase()"></div>
+                          <p class="text-value">
+                            {{ticket.priority}}
+                          </p>
                         </div>
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
-                          <div [ngClass]="'bug'"></div>
-                          Bug
+                          <div [ngClass]="ticket.type.toLowerCase()"></div>
+                          <p class="text-value">
+                            {{ticket.type}}
+                          </p>
                         </div>
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
-                          In progress
+                          <p class="text-value">
+                            {{ticket.status}}
+                          </p>
                         </div>
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
-                          8h
+                          <p class="text-value">
+                            {{ticket.estimated}}h
+                          </p>
                         </div>
                       </div>
                       <div
@@ -52,7 +61,7 @@
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-right-item">
                           <div [ngClass]="'assignee'"></div>
-                          Assignee
+                          {{ticket.assignee.username}}
                         </div>
                       </div>
                     </div>

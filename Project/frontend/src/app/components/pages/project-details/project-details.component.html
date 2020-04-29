@@ -1,10 +1,10 @@
 <div class="project-details">
   <div class="project-details__container">
-    <div *ngIf="load" class="project-details__container_header">
+    <div *ngIf="contentReady" class="project-details__container_header">
       <h2 [innerHTML]="project.name"></h2>
     </div>
-    <div class="project-details__container_body">
-      <ng-container *ngIf="load && tickets; else notFound">
+    <div class="project-details__container_body" *ngIf="contentReady">
+      <ng-container *ngIf="tickets; else notFound">
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -33,6 +33,8 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner type="timer" size="medium" color="#070707" bdColor="rgba(255,254,254,0.8)"></ngx-spinner>
 
 <ng-template #notFound>
   <div class="project-details__not-found">

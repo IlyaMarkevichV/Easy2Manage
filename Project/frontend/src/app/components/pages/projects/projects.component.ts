@@ -3,6 +3,7 @@ import {ProjectService} from '../../service/project.service';
 import {Project} from '../../model/project';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'e2m-projects',
@@ -11,17 +12,22 @@ import {Router} from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
 
+  public contentReady: boolean = false;
   public projects: Project[];
   public file: File;
 
   constructor(private service: ProjectService,
-              private router: Router) {
+              private router: Router,
+              private spinnerService: NgxSpinnerService) {
   }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.service.getProjects(1, 5).subscribe(data => {
       if (data) {
         this.projects = data;
+        this.contentReady = true;
+        this.spinnerService.hide();
       }
     });
   }

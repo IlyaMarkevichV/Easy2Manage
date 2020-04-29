@@ -7,6 +7,7 @@ import {Ticket} from '../../model/ticket';
 import {Router} from '@angular/router';
 import {FilterService} from '../../service/filter.service';
 import {FilterParam} from '../../model/filterParam';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {ProjectService} from '../../service/project.service';
 import {UserService} from '../../service/user.service';
 import {forkJoin} from 'rxjs';
@@ -14,6 +15,7 @@ import {DashboardService} from '../../service/dashboard.service';
 import {Dashboard} from '../../model/dashboard';
 import {Project} from '../../model/project';
 import {User} from '../../model/user';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 export enum FiltersEnum {
   Project = 'Project',

@@ -67,6 +67,8 @@
   </div>
 </div>
 
+<ngx-spinner type="timer" size="medium" color="#070707" bdColor="rgba(255,254,254,0.8)"></ngx-spinner>
+
 <ng-template #notFound>
   <div class="search__not-found">
     <span class="search__not-found_icon">
@@ -83,6 +85,6 @@
   (onSubmit)="saveFilters()"
   (onClose)="setDashboardPopupVisible()">
    <ng-container>
-      <input class="form-control dashboard-name" type="text" placeholder="Dashboard name"/>
+      <input class="form-control dashboard-name" type="text" placeholder="Dashboard name" [(ngModel)]="dashboardName"/>
    </ng-container>
 </e2m-shared-popup>
