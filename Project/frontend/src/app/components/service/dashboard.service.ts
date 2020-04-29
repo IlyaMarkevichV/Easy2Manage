@@ -31,7 +31,7 @@ export class DashboardService {
   }
 
   deleteDashboard(dashboardId: string): Observable<void> {
-    return this.http.delete<void>("api/dashboard/delete/" + dashboardId);
+    return this.http.post<void>("api/dashboard/delete/" + dashboardId, null);
   }
 
 

@@ -25,7 +25,7 @@ export class FilterService {
   }
 
   deleteFilter(dashboardId: string): Observable<void> {
-    return this.http.delete<void>("api/dashboard/delete?dashboardId=" + dashboardId);
+    return this.http.post<void>("api/filter/delete?dashboardId=" + dashboardId, null);
   }
 
 }
