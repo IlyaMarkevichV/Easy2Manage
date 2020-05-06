@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -35,5 +36,10 @@ public class ProjectServiceImpl implements ProjectService {
     public Page<Project> getProjects(Integer limit, Integer offset) {
         Pageable pageable = new PageRequest(offset - 1, limit, new Sort(Sort.Direction.ASC, "name"));
         return projectRepository.findAll(pageable);
+    }
+
+    @Override
+    public Integer getTotalNumber() {
+        return ((List<Project>) projectRepository.findAll()).size();
     }
 }

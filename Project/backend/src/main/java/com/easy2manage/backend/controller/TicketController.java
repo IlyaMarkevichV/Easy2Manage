@@ -72,4 +72,9 @@ public class TicketController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping(value = "/total")
+    public ResponseEntity<?> getTotalTicketsNumber() {
+        return ResponseEntity.ok(ticketFacade.getTotalNumber());
+    }
 }

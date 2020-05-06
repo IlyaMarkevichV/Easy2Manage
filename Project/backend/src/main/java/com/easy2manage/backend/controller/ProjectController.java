@@ -56,4 +56,9 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping(value = "/total")
+    public ResponseEntity<?> getTotalProjectsNumber() {
+        return ResponseEntity.ok(projectFacade.getTotalNumber());
+    }
 }

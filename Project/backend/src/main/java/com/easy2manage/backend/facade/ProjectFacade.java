@@ -9,4 +9,5 @@ public interface ProjectFacade {
     ProjectDto createProject(CreateProjectDto createProjectDto);
     ProjectDto getProjectDto(Integer projectId);
     List<ProjectDto> getProjects(Integer limit, Integer offset);
+    Integer getTotalNumber();
 }

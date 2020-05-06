@@ -12,4 +12,5 @@ public interface TicketService {
     Ticket getTicketByName(String name);
     Ticket createTicket(Ticket ticket);
     Page<Ticket> getTicketsByProject(Integer projectId, Integer limit, Integer offset);
+    Integer getTotalNumber();
 }
