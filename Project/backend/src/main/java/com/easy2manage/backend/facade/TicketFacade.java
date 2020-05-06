@@ -14,4 +14,5 @@ public interface TicketFacade {
     List<TicketDto> getTickets(Integer projectId, Integer limit, Integer offset);
     TicketDto updateTicket(UpdateTicketDto dto);
     List<TicketDto> getTicketsByFilter(Filter filter);
+    Integer getTotalNumber();
 }

@@ -83,4 +83,9 @@ public class ProjectFacadeImpl implements ProjectFacade {
             throw new IllegalArgumentException("Unknown exception");
         }
     }
+
+    @Override
+    public Integer getTotalNumber() {
+        return projectService.getTotalNumber();
+    }
 }

@@ -70,6 +70,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public Integer getTotalNumber() {
+        return ((List<Ticket>) ticketRepository.findAll()).size();
+    }
+
+    @Override
     public List<Ticket> getTicketsByQuery(String query) {
         List<Ticket> tickets = new ArrayList<>();
 

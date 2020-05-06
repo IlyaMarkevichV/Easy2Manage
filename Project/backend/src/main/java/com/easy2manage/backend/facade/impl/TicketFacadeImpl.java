@@ -193,6 +193,11 @@ public class TicketFacadeImpl implements TicketFacade {
         return dto;
     }
 
+    @Override
+    public Integer getTotalNumber() {
+        return ticketService.getTotalNumber();
+    }
+
     private TicketInfo createInfoForNewTicket(CreateTicketDto dto) {
         TicketInfo ticketInfo = new TicketInfo();
 
