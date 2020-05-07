@@ -34,7 +34,7 @@ public class FilterFacadeImpl implements FilterFacade {
         if (dashboard == null) {
             throw new IllegalArgumentException("There is no dashboard user with such id:" + dto.getDashboardId());
         }
-        filter.setDashboard(dashboard);
+//        filter.setDashboard(dashboard);
 
         Filter temp = filterService.createFilter(filter);
         dashboard.setFilter(temp);
@@ -49,8 +49,14 @@ public class FilterFacadeImpl implements FilterFacade {
     }
 
     @Override
-    public FilterDto deleteFilter(Integer dashboardId) {
-        return null;
+    public void deleteFilter(Integer dashboardId) {
+        try {
+            filterService.deleteFilter(dashboardId);
+        }catch (IllegalArgumentException ex){
+            throw  ex;
+        }catch (Exception ex){
+            throw new IllegalStateException("Unknown error");
+        }
     }
 
     private FilterDto getInfoFromModel(Filter filter) {
@@ -59,7 +65,7 @@ public class FilterFacadeImpl implements FilterFacade {
         dto.setId(filter.getId());
         dto.setName(filter.getName());
         dto.setQuery(filter.getQuery());
-        dto.setDashboardId(filter.getDashboard().getId());
+       // dto.setDashboardId(filter.getDashboard().getId());
 
         return dto;
     }

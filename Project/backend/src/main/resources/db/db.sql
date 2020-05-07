@@ -52,7 +52,7 @@ CREATE TABLE `easy2manage`.`dashboard` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `filter_id` INT NULL,
-  `user_id` INT NOT NULL,
+  `user_id` INT NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `easy2manage`.`user` (
@@ -150,3 +150,16 @@ ADD CONSTRAINT `ticket2parent`
   REFERENCES `easy2manage`.`ticket` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+
+ALTER TABLE `easy2manage`.`project`
+ADD COLUMN `reporter_id` INT NULL DEFAULT NULL AFTER `description`,
+ADD INDEX `project2reporter_idx` (`reporter_id` ASC) VISIBLE;
+;
+ALTER TABLE `easy2manage`.`project`
+ADD CONSTRAINT `project2reporter`
+  FOREIGN KEY (`reporter_id`)
+  REFERENCES `easy2manage`.`user` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+

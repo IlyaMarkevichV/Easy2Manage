@@ -1,6 +1,5 @@
 package com.easy2manage.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,7 +19,8 @@ public class Filter {
     @Column(name = "query")
     private String query;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "filter")
-    @JsonManagedReference
-    private Dashboard dashboard;
+//    @OneToOne(cascade = CascadeType.REMOVE ,mappedBy = "filter")
+//    @OnDelete(action = OnDeleteAction.NO_ACTION)
+//    @JsonManagedReference
+//    private Dashboard dashboard;
 }
