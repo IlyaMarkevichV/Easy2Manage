@@ -23,7 +23,7 @@
     "@angular/router": "~8.2.4",
     "bootstrap-less": "^3.3.8",
     "chart.js": "^2.9.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-charts": "^2.3.0",
     "ngx-spinner": "^9.0.2",
     "rxjs": "~6.4.0",
