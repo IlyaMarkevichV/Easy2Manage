@@ -42,4 +42,11 @@ public class ProjectServiceImpl implements ProjectService {
     public Integer getTotalNumber() {
         return ((List<Project>) projectRepository.findAll()).size();
     }
+
+    @Override
+    public Integer getTotalByReporter(Integer reporterId) {
+        List<Project> projects  = projectRepository.getProjectsByReporterId(reporterId);
+        System.out.println("TOtal size " + projects.size());
+        return projects.size();
+    }
 }

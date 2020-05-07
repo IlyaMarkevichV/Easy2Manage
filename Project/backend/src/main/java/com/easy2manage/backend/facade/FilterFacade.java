@@ -7,5 +7,5 @@ import com.easy2manage.backend.dto.filter.ParamDto;
 public interface FilterFacade {
     FilterDto createFilter(CreateFilterDto dto);
     FilterDto addParam(ParamDto dto);
-    FilterDto deleteFilter(Integer dashboardId);
+    void deleteFilter(Integer dashboardId);
 }

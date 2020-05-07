@@ -1,6 +1,5 @@
 package com.easy2manage.backend.controller;
 
-import com.easy2manage.backend.dto.StringResponse;
 import com.easy2manage.backend.dto.project.CreateProjectDto;
 import com.easy2manage.backend.dto.project.ProjectDto;
 import com.easy2manage.backend.facade.ProjectFacade;
@@ -26,6 +25,9 @@ public class ProjectController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Server problem, can't create project. " + e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unknown error");
         }
     }
 

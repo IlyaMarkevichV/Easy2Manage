@@ -4,8 +4,12 @@ import com.easy2manage.backend.dto.project.CreateProjectDto;
 import com.easy2manage.backend.dto.project.ProjectDto;
 import com.easy2manage.backend.facade.ProjectFacade;
 import com.easy2manage.backend.model.Project;
+import com.easy2manage.backend.model.user.User;
 import com.easy2manage.backend.service.ProjectService;
+import com.easy2manage.backend.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,14 +21,28 @@ import java.util.stream.Collectors;
 public class ProjectFacadeImpl implements ProjectFacade {
 
     @Resource
+    private UserService userService;
+
+    @Resource
     private ProjectService projectService;
 
     @Override
     public ProjectDto createProject(CreateProjectDto createProjectDto) {
         Project project = new Project();
 
+        UserDetails userDetails =  (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User reporter =  userService.getUserByUsername(userDetails.getUsername());
+        if(reporter == null){
+            throw new IllegalArgumentException("Anonymous user");
+        }
+        if( projectService.getTotalByReporter(reporter.getId()) >= 5){
+            throw new IllegalArgumentException("One user can create only 5 projects");
+        }
+
         project.setDescription(createProjectDto.getDescription());
         project.setName(createProjectDto.getName());
+        project.setReporter(reporter);
 
         try {
             return getInfoFromModel(projectService.createProject(project));

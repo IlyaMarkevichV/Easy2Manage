@@ -8,5 +8,6 @@ public interface ProjectService {
     Project getProject(Integer id);
     Project createProject(Project project);
     Page<Project> getProjects(Integer limit, Integer offset);
+    Integer getTotalByReporter(Integer reporterId);
     Integer getTotalNumber();
 }

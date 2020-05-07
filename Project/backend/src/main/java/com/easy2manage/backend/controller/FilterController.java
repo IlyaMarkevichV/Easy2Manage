@@ -12,7 +12,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -61,6 +60,14 @@ public class FilterController {
 
     @PostMapping(value = "/delete")
     public ResponseEntity<?> deleteFilter(@RequestParam Integer dashboardId) {
-        return null;
+        try {
+            filterFacade.deleteFilter(dashboardId);
+
+            return ResponseEntity.status(200).build();
+        }catch (IllegalArgumentException ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unknown exception");
+        }
     }
 }

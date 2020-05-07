@@ -1,12 +1,10 @@
 package com.easy2manage.backend.service.impl;
 
 import com.easy2manage.backend.dto.filter.ParamDto;
+import com.easy2manage.backend.model.Dashboard;
 import com.easy2manage.backend.model.Filter;
-import com.easy2manage.backend.model.Project;
-import com.easy2manage.backend.model.ticket.Ticket;
-import com.easy2manage.backend.model.user.User;
 import com.easy2manage.backend.repository.FilterRepository;
-import com.easy2manage.backend.repository.TicketRepository;
+import com.easy2manage.backend.service.DashboardService;
 import com.easy2manage.backend.service.FilterService;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +25,24 @@ public class FilterServiceImpl implements FilterService {
     @Resource
     private FilterRepository filterRepository;
 
+//    @Resource
+//    private TicketRepository ticketRepository;
+
     @Resource
-    private TicketRepository ticketRepository;
+    private DashboardService dashboardService;
 
     @Override
     public Filter createFilter(Filter filter) {
-        User user = filter.getDashboard().getUser();
-        Ticket ticket = ticketRepository.findTicketsByAssigneeOrReporter(user, user).get(0);
-        if (ticket == null) {
-            throw new IllegalArgumentException("User is not assigned on a project.");
-        }
+//        User user = filter.getDashboard().getUser();
+//        Ticket ticket = ticketRepository.findTicketsByAssigneeOrReporter(user, user).get(0);
+//        if (ticket == null) {
+//            throw new IllegalArgumentException("User is not assigned on a project.");
+//        }
 
-        Project project = ticket.getProject();
-        if (project == null) {
-            throw new IllegalArgumentException("Project is not found.");
-        }
+        //Project project = ticket.getProject();
+//        if (project == null) {
+//            throw new IllegalArgumentException("Project is not found.");
+//        }
 
         filter.setQuery(SELECT_PREFIX);
         try {
@@ -102,5 +103,14 @@ public class FilterServiceImpl implements FilterService {
             default:
                 return value;
         }
+    }
+
+    @Override
+    public void deleteFilter(Integer dashboardId) {
+        Dashboard dashboard = dashboardService.getDashboardById(dashboardId);
+        if(dashboard == null)
+            throw new IllegalArgumentException("Dashboard with such id:" + dashboardId +" does not exists");
+        Filter filter = dashboard.getFilter();
+        filterRepository.deleteById(filter.getId());
     }
 }
