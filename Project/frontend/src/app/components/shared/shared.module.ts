@@ -11,6 +11,7 @@ import {LogWorkTicketPopupComponent} from './navigation-bar/components/log-work-
 import {AuthorizationPopupComponent} from './navigation-bar/components/authorization-popup/authorization-popup.component';
 import {RouterModule} from '@angular/router';
 import { NotificationsComponent } from './notifications/notifications.component';
+import {TicketFormatterPipe} from './pipes/ticket-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -22,17 +23,19 @@ import { NotificationsComponent } from './notifications/notifications.component'
     AssignTicketPopupComponent,
     LogWorkTicketPopupComponent,
     AuthorizationPopupComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    TicketFormatterPipe
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule
   ],
-    exports: [
-        NavigationBarComponent,
-        SharedPopupComponent
-    ],
+  exports: [
+    NavigationBarComponent,
+    SharedPopupComponent,
+    TicketFormatterPipe
+  ],
   providers: []
 })
 export class SharedModule {

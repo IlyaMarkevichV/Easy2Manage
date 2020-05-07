@@ -40,13 +40,13 @@
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
                           <div [ngClass]="ticket.type.toLowerCase()"></div>
                           <p class="text-value">
-                            {{ticket.type}}
+                            {{ticket.type | ticketFormatter}}
                           </p>
                         </div>
                         <div
                           class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
                           <p class="text-value">
-                            {{ticket.status}}
+                            {{ticket.status | ticketFormatter}}
                           </p>
                         </div>
                         <div
