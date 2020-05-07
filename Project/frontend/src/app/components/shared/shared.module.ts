@@ -3,13 +3,15 @@ import {NgModule} from '@angular/core';
 import {SharedPopupComponent} from './shared-popup/shared-popup.component';
 import {CreateProjectPopupComponent} from './navigation-bar/components/create-project-popup/create-project-popup.component';
 import {CreateTicketPopupComponent} from './navigation-bar/components/create-ticket-popup/create-ticket-popup.component';
-import {CommonModule} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms';
 import {TicketEditPopupComponent} from './navigation-bar/components/ticket-edit-popup/ticket-edit-popup.component';
-import { AssignTicketPopupComponent } from './navigation-bar/components/assign-ticket-popup/assign-ticket-popup.component';
-import { LogWorkTicketPopupComponent } from './navigation-bar/components/log-work-ticket-popup/log-work-ticket-popup.component';
-import { AuthorizationPopupComponent } from './navigation-bar/components/authorization-popup/authorization-popup.component';
+import {AssignTicketPopupComponent} from './navigation-bar/components/assign-ticket-popup/assign-ticket-popup.component';
+import {LogWorkTicketPopupComponent} from './navigation-bar/components/log-work-ticket-popup/log-work-ticket-popup.component';
+import {AuthorizationPopupComponent} from './navigation-bar/components/authorization-popup/authorization-popup.component';
 import {RouterModule} from '@angular/router';
+import { NotificationsComponent } from './notifications/notifications.component';
+import {TicketFormatterPipe} from './pipes/ticket-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import {RouterModule} from '@angular/router';
     TicketEditPopupComponent,
     AssignTicketPopupComponent,
     LogWorkTicketPopupComponent,
-    AuthorizationPopupComponent
+    AuthorizationPopupComponent,
+    NotificationsComponent,
+    TicketFormatterPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import {RouterModule} from '@angular/router';
     RouterModule
   ],
   exports: [
-    NavigationBarComponent
+    NavigationBarComponent,
+    SharedPopupComponent,
+    TicketFormatterPipe
   ],
   providers: []
 })

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Project} from '../../model/project';
 import {ProjectService} from '../../service/project.service';
@@ -7,13 +7,15 @@ import {Ticket} from '../../model/ticket';
 import {TicketService} from '../../service/ticket.service';
 import {User} from '../../model/user';
 import {TokenProvider} from '../../http/token.provider';
+import {NotificationsService} from '../../service/notifications.service';
+import {LocalStorageProvider} from '../../service/local-storage.provider';
 
 @Component({
   selector: 'e2m-navigation-bar',
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['../../../../assets/styles/shared/navigation-bar/navigation-bar.component.less']
 })
-export class NavigationBarComponent implements OnInit {
+export class NavigationBarComponent implements OnInit, OnDestroy {
 
   public createProjectPopupVisible: boolean = false;
   public createTicketPopupVisible: boolean = false;
@@ -22,20 +24,25 @@ export class NavigationBarComponent implements OnInit {
   public logWorkPopupVisible: boolean = false;
   public logInPopupVisible: boolean = false;
   public userAuthorized: boolean = false;
+  public showNotification: boolean = false;
 
   public user: User;
   public selectedProject: Project;
   public ticket: Ticket;
   public projects: Project[];
+  public notificationText: string;
 
   constructor(private router: Router,
               private service: ProjectService,
               private ticketService: TicketService,
               private sharedEvents: SharedEventsService,
-              private tokenProvider: TokenProvider) {
+              private notificationsService: NotificationsService,
+              private tokenProvider: TokenProvider,
+              private localStorageProvider: LocalStorageProvider) {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(this.localStorageProvider.getItem('user'));
     this.initSubscriptions();
   }
 
@@ -74,6 +81,19 @@ export class NavigationBarComponent implements OnInit {
 
   public closeLogInPopup(): void {
     this.logInPopupVisible = false;
+  }
+
+  public openNotification(text: string): void {
+    this.notificationText = text;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.closeNotification();
+    }, 3000);
+  }
+
+  public closeNotification(): void {
+    this.showNotification = false;
+    this.notificationText = null;
   }
 
   public navigateToProjects(): void {
@@ -119,7 +139,7 @@ export class NavigationBarComponent implements OnInit {
           queryParams: {
             id: ticket.id
           }
-        })
+        });
       }
     });
   }
@@ -153,6 +173,10 @@ export class NavigationBarComponent implements OnInit {
     this.sharedEvents._getOnUserSignIn().subscribe((user: User) => {
       this.proceedAuthorization(user);
     });
+
+    this.notificationsService._getOnOpenNotification().subscribe((text: string) => {
+      this.openNotification(text);
+    });
   }
 
   public closeEditTicketPopup(): void {
@@ -169,18 +193,49 @@ export class NavigationBarComponent implements OnInit {
 
   public proceedAuthorization(user: User): void {
     this.user = user;
+    this.localStorageProvider.saveItem('user', JSON.stringify(this.user));
     this.userAuthorized = true;
     this.logInPopupVisible = false;
+    this.navigateToDashboards();
   }
 
   public proceedLogOut(): void {
     this.tokenProvider.removeToken();
     this.userAuthorized = false;
+    this.localStorageProvider.removeItem('user');
     this.user = null;
+    this.navigateToLanding();
   }
 
   public navigateToRegistration(): void {
     this.router.navigate(['registration']);
   }
 
+  public navigateToDashboards(): void {
+    if (!this.user) {
+      this.openNotification('Log In please');
+    } else {
+      this.router.navigate(['dashboards'], {
+        queryParams: {
+          userId: this.user.id
+        }
+      });
+    }
+  }
+
+  public navigateToSearch(): void {
+    if (!this.user) {
+      this.openNotification('Log In please');
+    } else {
+      this.router.navigate(['search'], {
+        queryParams: {
+          userId: this.user.id
+        }
+      });
+    }
+  }
+
+  public ngOnDestroy(): void {
+    this.localStorageProvider.removeItem('user');
+  }
 }

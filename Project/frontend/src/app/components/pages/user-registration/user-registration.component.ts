@@ -8,6 +8,7 @@ import {TokenProvider} from '../../http/token.provider';
 import {UserToken} from '../../model/user-token';
 import {SharedEventsService} from '../../service/shared.events.service';
 import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 export enum ControlFields {
   username = 'username',
@@ -31,7 +32,8 @@ export class UserRegistrationComponent implements OnInit {
   constructor(private authorizationService: AuthorizationService,
               private tokenProvider: TokenProvider,
               private router: Router,
-              private sharedEventsService: SharedEventsService) {
+              private sharedEventsService: SharedEventsService,
+              private spinnerService: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -65,9 +67,11 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   public submitForm(): void {
+    this.spinnerService.show();
     this.authorizationService.registerUser(this.user).subscribe((userTokenModel: UserToken) => {
       this.tokenProvider.saveToken(userTokenModel.token);
       this.sharedEventsService._setOnUserSignIn(userTokenModel.user);
+      this.spinnerService.hide();
       this.router.navigate(['']);
     });
   }

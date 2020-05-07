@@ -1,5 +1,5 @@
-<div class="ticket-details">
-  <div *ngIf="load && ticket; else notFound" class="ticket-details__container">
+<div class="ticket-details" *ngIf="contentReady">
+  <div *ngIf="ticket; else notFound" class="ticket-details__container">
     <div class="ticket-details__container_header">
       <h3><a class="ticket-details__link" (click)="navigateToProject(ticket.project.id)">{{ticket.project.name}}</a></h3>
       <h2 [innerHTML]="ticket.name"></h2>

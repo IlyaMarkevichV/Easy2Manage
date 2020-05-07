@@ -8,9 +8,10 @@ import {CommonModule} from '@angular/common';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ChartsModule} from 'ng2-charts';
 import {UserRegistrationComponent} from './user-registration/user-registration.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SearchComponent} from './search/search.component';
 import {DashboardsComponent} from './dashboards/dashboards.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import {DashboardsComponent} from './dashboards/dashboards.component';
     CommonModule,
     DragDropModule,
     ChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    FormsModule
   ],
   providers: []
 })

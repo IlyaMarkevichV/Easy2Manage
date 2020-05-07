@@ -1,1 +1,93 @@
-<p>dashboards works!</p>
+<div class="dashboards">
+  <div class="dashboards__container">
+    <div class="dashboards__container_header">
+      <h2>Dashboards</h2>
+    </div>
+    <div class="dashboards__container_body" *ngIf="contentReady">
+      <!--<ng-container *ngTemplateOutlet="notFound">
+      </ng-container>-->
+      <div class="dashboards__container_body-boards" *ngIf="dashboards.length !== 0; else notFound">
+        <div class="dashboards__container_body-boards__item" *ngFor="let dashboard of dashboards">
+          <div class="dashboards__container_body-boards__item-header">
+            {{dashboard.name}}
+          </div>
+          <div class="dashboards__container_body-boards__item-content">
+            <ul class="dashboards__container_body-boards__item-content_items">
+              <li class="dashboards__container_body-boards__item-content_items__card"
+                  *ngFor="let ticket of dashboard.tickets">
+                <div class="dashboards__container_body-boards__item-content_items__card-status"
+                     [ngClass]="'blocker-bg'">
+                </div>
+                <div class="dashboards__container_body-boards__item-content_items__card-content">
+                  <div class="dashboards__container_body-boards__item-content_items__card-content-header">
+                    <a class="ticket-link" (click)="navigateToTicket(ticket.id)">{{ticket.name}}</a>
+                  </div>
+                  <div class="dashboards__container_body-boards__item-content_items__card-content-body">
+                    <div class="dashboards__container_body-boards__item-content_items__card-content-body_description">
+                      {{ticket.description}}
+                    </div>
+                    <div class="dashboards__container_body-boards__item-content_items__card-content-body_details">
+                      <div
+                        class="dashboards__container_body-boards__item-content_items__card-content-body_details-left">
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <div [ngClass]="ticket.priority.toLowerCase()"></div>
+                          <p class="text-value">
+                            {{ticket.priority}}
+                          </p>
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <div [ngClass]="ticket.type.toLowerCase()"></div>
+                          <p class="text-value">
+                            {{ticket.type | ticketFormatter}}
+                          </p>
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <p class="text-value">
+                            {{ticket.status | ticketFormatter}}
+                          </p>
+                        </div>
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-left-item">
+                          <p class="text-value">
+                            {{ticket.estimated}}h
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="dashboards__container_body-boards__item-content_items__card-content-body_details-right">
+                        <div
+                          class="dashboards__container_body-boards__item-content_items__card-content-body_details-right-item">
+                          <div [ngClass]="'assignee'"></div>
+                          {{ticket.assignee.username}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner type="timer" size="medium" color="#070707" bdColor="rgba(255,254,254,0.8)"></ngx-spinner>
+
+<ng-template #notFound>
+  <div class="dashboards__not-found">
+    <p class="dashboards__not-found_title">
+      There is no boards yet
+    </p>
+    <button class="btn dashboards__not-found_add" (click)="navigateToSearch()">
+      <span class="btn dashboards__not-found_add-icon"></span>
+    </button>
+    <p class="dashboards__not-found_description">
+      Click here to add
+    </p>
+  </div>
+</ng-template>

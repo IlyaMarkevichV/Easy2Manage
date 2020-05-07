@@ -4,7 +4,7 @@
       <h2>Projects</h2>
     </div>
 
-    <div class="projects__container_body">
+    <div class="projects__container_body" *ngIf="contentReady">
       <ul class="projects__container_body-content"
           cdkDropList
           [cdkDropListData]="projects"
@@ -21,3 +21,4 @@
     </div>
   </div>
 </div>
+<ngx-spinner type="timer" size="medium" color="#070707" bdColor="rgba(255,254,254,0.8)"></ngx-spinner>

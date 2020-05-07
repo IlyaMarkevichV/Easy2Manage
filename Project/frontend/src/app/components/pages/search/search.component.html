@@ -3,9 +3,88 @@
     <div class="search__container_header">
       <h2>Search</h2>
     </div>
-    <div class="search__container_filters">
+    <div class="search__container_filters" *ngIf="filtersReady">
+      <div class="search__container_filters-search">
+        <input class="form-control search__container_filters-search_field" type="text" placeholder="Search by name"/>
+        <button class="btn search__container_filters-search_button" type="button"></button>
+      </div>
+      <div class="search__container_filters-container">
+        <ul class="search__container_filters-container_items">
+          <li class="search__container_filters-container_items-item" *ngFor="let filterName of getKeys()">
+            <button class="btn dropdown-toggle search__container_filters-container_items-item-button" type="button"
+                    id="dropdownProjects" data-toggle="dropdown">
+              {{filterName}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownProjects">
+              <li class="dropdown-item" *ngFor="let value of getValues(filterName)">
+                <input type="checkbox" [checked]="value.selected" (click)="setFilterValue($event, filterName, value)"/>
+                {{value.name}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="search__container_filters-apply">
+        <button class="btn" type="button" (click)="applyFilters()">
+          Apply filters
+        </button>
+      </div>
+      <div class="search__container_filters-save">
+        <button class="btn search__container_filters-save_button" type="button" (click)="setDashboardPopupVisible()">
+          Save
+        </button>
+      </div>
     </div>
     <div class="search__container_result">
+      <ng-container *ngIf="contentReady; else notFound">
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Status</th>
+            <th scope="col">Assignee</th>
+            <th scope="col">Remaining</th>
+            <th scope="col">Due</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let ticket of tickets">
+            <td scope="row">{{ticket.id}}</td>
+            <td><a class="project-details__link" (click)="navigateToTicket(ticket.id)">{{ticket.project.name}}
+              .{{ticket.name}}</a></td>
+            <td>{{ticket.priority}}</td>
+            <td>{{ticket.status}}</td>
+            <td>{{ticket.assignee.username}}</td>
+            <td>{{ticket.remaining}}</td>
+            <td>{{ticket.dueDate}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
     </div>
   </div>
 </div>
+
+<ngx-spinner type="timer" size="medium" color="#070707" bdColor="rgba(255,254,254,0.8)"></ngx-spinner>
+
+<ng-template #notFound>
+  <div class="search__not-found">
+    <span class="search__not-found_icon">
+    </span>
+    <p class="search__not-found_title">
+      Nothing found
+    </p>
+  </div>
+</ng-template>
+
+<e2m-shared-popup
+  *ngIf="dashboardNamePopupVisible"
+  [header]="'Dashboard name'"
+  (onSubmit)="saveFilters()"
+  (onClose)="setDashboardPopupVisible()">
+   <ng-container>
+      <input class="form-control dashboard-name" type="text" placeholder="Dashboard name" [(ngModel)]="dashboardName"/>
+   </ng-container>
+</e2m-shared-popup>
