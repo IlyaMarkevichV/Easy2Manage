@@ -20,7 +20,7 @@ public class Dashboard {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "filter_id")
     @JsonBackReference
     private Filter filter;
