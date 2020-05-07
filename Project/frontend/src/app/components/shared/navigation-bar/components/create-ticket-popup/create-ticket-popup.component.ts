@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {Ticket} from "../../../../model/ticket";
+import {LocalStorageProvider} from '../../../../service/local-storage.provider';
 
 export enum ControlFields {
   name = 'name',
@@ -46,7 +47,7 @@ export class CreateTicketPopupComponent implements OnInit {
   public priorities: Set<string> = new Set<string>(['low', 'normal', 'major', 'critical', 'blocker']);
 
 
-  constructor() {
+  constructor(private storage: LocalStorageProvider) {
   }
 
   ngOnInit() {
@@ -56,12 +57,21 @@ export class CreateTicketPopupComponent implements OnInit {
 
   public _onSubmit(): void {
     this.ticket.status = "open";
+    this.ticket.assigneeId = JSON.parse(this.storage.getItem('user')).id;
+    this.ticket.reporterId = JSON.parse(this.storage.getItem('user')).id;
+    this.ticket.type = this.convertToDbValues(this.ticket.type);
     this.onSubmit.emit(this.ticket);
   }
 
   public _onClose(): void {
     this.onClose.emit();
     this.visible = false;
+  }
+
+  public convertToDbValues(value: string): string {
+    let dbValue = value.replace(" ", "_");
+    dbValue = dbValue.toUpperCase();
+    return dbValue;
   }
 
   private initFormGroup(): void {

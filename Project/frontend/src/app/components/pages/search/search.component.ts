@@ -122,11 +122,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.modifyFilter();
   }
 
-  public saveFilters(): void {
+  public async saveFilters(): Promise<void> {
     this.dashBoardService.createDashboard(SearchComponent.createDashboard(this.dashboardName, this.userId)).subscribe(dashboard => {
       this.filterService.createFilter(dashboard.id, dashboard.name).subscribe(() => {
         this.addParams(dashboard.id);
-        this.navigateToDashboards();
+        setTimeout(() => {
+          this.navigateToDashboards();
+        }, 3000);
       })
     })
   }

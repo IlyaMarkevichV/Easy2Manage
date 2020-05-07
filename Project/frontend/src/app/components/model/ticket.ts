@@ -11,6 +11,7 @@ export class Ticket {
   status: string;
   assignee: User;
   assigneeId: string;
+  reporterId: string;
   reporter: User;
   project: Project;
   projectId: string;
