@@ -12,7 +12,7 @@
       text-align: center;
 
       &-title {
-        padding-top: 10rem;
+        padding-top: 3rem;
         color: white;
 
         &-value {
@@ -28,32 +28,33 @@
           font-size: 4rem;
         }
       }
-    }
+      &-container {
+        margin-top: 10rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding-right: 15rem;
+        padding-left: 15rem;
 
-    &__container {
-      margin-top: 7rem;
-      height: 70rem;
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding-right: 15rem;
-      padding-left: 15rem;
+        &-item {
+          display: flex;
+          flex-flow: column wrap;
 
-      &-chart {
-        &-doughnut {
-          transform: rotate(225deg);
+          &_value {
+            color: white;
+            text-align: center;
+            font-size: 10rem;
+          }
+
+          &_description {
+            color: white;
+            border-top: 1px solid #FCFCFC;
+            padding-top: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+          }
         }
-
-        &-line {
-          flex: 0 0 100%;
-        }
-      }
-
-      &-description {
-        flex: 0 0 100%;
-        text-align: center;
       }
     }
 
@@ -62,7 +63,7 @@
       flex-direction: column;
       flex-wrap: wrap;
       align-content: center;
-      margin-top: 20rem;
+      margin-top: 30rem;
       height: 45rem;
       width: 100%;
 
@@ -115,8 +116,4 @@
       margin-bottom: 1rem;
     }
   }
-}
-
-.chartjs-size-monitor {
-  position: relative;
 }

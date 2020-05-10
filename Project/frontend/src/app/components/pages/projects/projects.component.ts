@@ -4,6 +4,7 @@ import {Project} from '../../model/project';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {NotificationsService} from '../../service/notifications.service';
 
 @Component({
   selector: 'e2m-projects',
@@ -18,7 +19,8 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private service: ProjectService,
               private router: Router,
-              private spinnerService: NgxSpinnerService) {
+              private spinnerService: NgxSpinnerService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -29,6 +31,9 @@ export class ProjectsComponent implements OnInit {
         this.contentReady = true;
         this.spinnerService.hide();
       }
+    }, () => {
+      this.spinnerService.hide();
+      this.notificationsService._setOnOpenNotification("Service unavailable");
     });
   }
 

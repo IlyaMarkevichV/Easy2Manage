@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Dashboard} from '../../model/dashboard';
 import {DashboardService} from '../../service/dashboard.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {NotificationsService} from '../../service/notifications.service';
+import set = Reflect.set;
 
 @Component({
   selector: 'e2m-dashboards',
@@ -19,7 +21,8 @@ export class DashboardsComponent implements OnInit {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private dashboardService: DashboardService,
-              private spinnerService: NgxSpinnerService) {
+              private spinnerService: NgxSpinnerService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -30,11 +33,16 @@ export class DashboardsComponent implements OnInit {
     this.spinnerService.show();
     this.activatedRoute.queryParamMap.subscribe((params: any) => {
       this.userId = params.get('userId');
-      this.dashboardService.getAllUserDashboards(this.userId).subscribe((data: Dashboard[]) => {
-        this.dashboards = data;
-        this.contentReady = true;
-        this.spinnerService.hide();
-      });
+      setTimeout(() => {
+        this.dashboardService.getAllUserDashboards(this.userId).subscribe((data: Dashboard[]) => {
+          this.dashboards = data;
+          this.contentReady = true;
+          this.spinnerService.hide();
+        }, () => {
+          this.spinnerService.hide();
+          this.notificationsService._setOnOpenNotification('Service unavailable');
+        });
+      }, 500);
     });
   }
 

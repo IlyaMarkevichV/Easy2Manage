@@ -13,7 +13,8 @@
 
 
     &__content {
-      height: 50px;
+      border: 1px solid #BDBDBD;
+      height: 60px;
       display: flex;
       flex-flow: row nowrap;
       background-color: white;
@@ -23,8 +24,15 @@
       align-items: center;
       justify-content: space-between;
 
+      &-icon {
+        background-image: url("src/assets/images/icons/warning-notification.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 3rem;
+        height: 3rem;
+      }
+
       &-title {
-        text-align: center;
         margin: 0;
       }
 
@@ -35,8 +43,10 @@
         opacity: 50%;
         background-size: contain;
         background-repeat: no-repeat;
-        width: 3rem;
-        height: 3rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        align-self: flex-start;
+        margin-top: 1rem;
 
         &:hover {
           opacity: 100%;

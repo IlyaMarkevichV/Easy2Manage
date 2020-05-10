@@ -110,6 +110,8 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
         this.projects = data;
         this.createTicketPopupVisible = true;
       }
+    }, () => {
+      this.openNotification("Service unavailable");
     });
   }
 

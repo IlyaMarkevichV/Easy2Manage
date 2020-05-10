@@ -7,22 +7,24 @@
         <p class="landing-body__intro-title-subtitle">Easy2Manage</p>
         <p class="landing-body__intro-title-description">project management tool</p>
       </div>
-    </div>
+      <div class="landing-body__intro-container">
+        <div class="landing-body__intro-container-item">
+          <div class="landing-body__intro-container-item_value">
+            {{numberOfProjects}}
+          </div>
 
-    <div class="landing-body__container">
-      <div class="landing-body__container-chart-line">
-        <canvas baseChart
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="false"
-                [chartType]="lineChartType">
-
-        </canvas>
-      </div>
-      <div class="landing-body__container-description">
-        <p>Over 1,000 of active projects</p>
+          <div class="landing-body__intro-container-item_description">
+            active projects
+          </div>
+        </div>
+        <div class="landing-body__intro-container-item">
+          <div class="landing-body__intro-container-item_value">
+            {{numberOfUsers}}
+          </div>
+          <div class="landing-body__intro-container-item_description">
+            users have join us
+          </div>
+        </div>
       </div>
     </div>
 

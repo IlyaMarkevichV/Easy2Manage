@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {PriorityEnum} from '../../enum/priority.enum';
 import {StatusEnum} from '../../enum/status.enum';
 import {TypeEnum} from '../../enum/type.enum';
@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   public projects: Project[] = [];
   public users: User[] = [];
 
-  public tickets: Ticket[];
+  public tickets: Ticket[] = [];
 
   public filters: Map<string, FilterValue[]> = new Map<string, FilterValue[]>();
 
